@@ -1,0 +1,30 @@
+//旋转数组
+void Fun(int arr[], int len,int input)
+{
+	int i = 0;
+	int tmp = 0;
+	int newswap = 0;
+	int *str = (int *)malloc(4 * len);
+	for (i = 0; i < len; i++)
+	{
+		newswap = (i + input) % len;
+		str[newswap] = arr[i];
+	}
+	for (i = 0; i < len; i++)
+	{
+		printf("%d ", str[i]);
+	}
+	printf("\n");
+	free(str);
+	str = NULL;
+}
+int main()
+{
+	int arr[] = { 1, 2, 3, 4, 5, 6, 7 };
+	int len = sizeof(arr) / sizeof(arr[0]);
+	int input = 0;
+	scanf("%d", &input);
+	Fun(arr, len,input);
+	system("pause");
+	return 0;
+}
