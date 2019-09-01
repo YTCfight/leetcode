@@ -1,0 +1,35 @@
+//最长公共前缀
+int Fun(char *str[], int len)
+{
+	int i = 0;
+	int j = 0;
+	while (str[i][j] == str[i + 1][j])
+	{
+		//如果前面两个相等，则继续比较后面的。
+		if (i + 2 < len)
+		{
+			i++;
+		}
+		//若前面的第j个字符相等，则继续比较下一个字符。
+		else
+		{
+			j++;
+			i = 0;
+		}
+	}
+	//返回第j个字符的下标。
+	return j;
+}
+int main()
+{
+	char *str[3] = { "flower", "flow", "flp" };
+	int len = sizeof(str) / sizeof(str[0]);
+	int ret = Fun(str, len);
+	for (int i = 0; i < ret; i++)
+	{
+		printf("%c", str[0][i]);
+	}
+	printf("\n");
+	system("pause");
+	return 0;
+}
