@@ -1,0 +1,23 @@
+//数组形式的整数加法
+int Fun(int arr[], int len)
+{
+	int sum = 0;
+	int j = 0;
+	for (int i = len - 1; i >= 0; i--)
+	{
+		sum +=( arr[j] * pow(10, i));
+		j++;
+	}
+	return sum;
+}
+int main()
+{
+	int arr[] = { 1, 2, 0, 0 };
+	int len = sizeof(arr) / sizeof(arr[0]);
+	int ret = Fun(arr, len);
+	int input = 0;
+	scanf("%d", &input);
+	printf("%d\n", ret+input);
+	system("pause");
+	return 0;
+}
