@@ -1,0 +1,26 @@
+//颠倒给定的 32 位无符号整数的二进制位。
+int Fun(int input)
+{
+	int i = 0;
+	int sum = 0;
+	for (i = 31; i >= 0;i--)
+	{
+		int tmp=input%2;
+		sum +=(tmp* pow(2, i));
+		input = input >> 1;
+		if (input == 0)
+		{
+			break;
+		}
+	}
+	return sum;
+}
+int main()
+{
+	int input = 0;
+	scanf("%d", &input);
+	int ret = Fun(input);
+	printf("%d\n", ret);
+	system("pause");
+	return 0;
+}
