@@ -1,0 +1,69 @@
+//查询后的偶数和
+#define NUMBER 4
+void Fun(int arr1[], int arr2[][2])
+{
+	int arr3[NUMBER] = { 0 };
+	//int tmp = NUMBER;
+	for (int i = 0; i < NUMBER; i++)
+	{
+		int val = arr2[i][0];
+		int index = arr2[i][1];
+		arr1[index] += val;
+		int sum = 0;
+		for (int j = 0; j < NUMBER; j++)
+		{
+			if (arr1[j] % 2 == 0)
+			{
+				sum += arr1[j];
+			}
+		}
+		arr3[i] = sum;
+	}
+	for (int i = 0; i < NUMBER; i++)
+	{
+		printf("%d ", arr3[i]);
+	}
+	printf("\n");
+}
+int main()
+{
+	int arr1[] = { 1, 2, 3, 4 };
+	int arr2[][2] = { { 1, 0 }, { -3, 1 }, { -4, 0 }, { 2, 3 } };
+	Fun(arr1, arr2);
+	system("pause");
+	return 0;
+}
+#define NUMBER 4
+void Fun(int arr1[], int arr2[][2])
+{
+	int arr3[NUMBER] = { 0 };
+	//int tmp = NUMBER;
+	for (int i = 0; i < NUMBER; i++)
+	{
+		int val = arr2[i][0];
+		int index = arr2[i][1];
+		arr1[index] += val;
+		int sum = 0;
+		for (int j = 0; j < NUMBER; j++)
+		{
+			if (arr1[j] % 2 == 0)
+			{
+				sum += arr1[j];
+			}
+		}
+		arr3[i] = sum;
+	}
+	for (int i = 0; i < NUMBER; i++)
+	{
+		printf("%d ", arr3[i]);
+	}
+	printf("\n");
+}
+int main()
+{
+	int arr1[] = { 1, 2, 3, 4 };
+	int arr2[][2] = { { 1, 0 }, { -3, 1 }, { -4, 0 }, { 2, 3 } };
+	Fun(arr1, arr2);
+	system("pause");
+	return 0;
+}
