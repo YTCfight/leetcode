@@ -1,0 +1,32 @@
+//累加数
+int AccumulationNumber(char* str,int len)
+{
+	if (len < 2)
+	{
+		return 0;
+	}
+	char a = *str;
+	char b = *(str+1);
+	char c = 'c';
+	while (*str != '\0')
+	{
+		c = a + b;
+		if (a + b != c)
+		{
+			return 0;
+		}
+		a = *str;
+		b = *(str + 1); 
+		str++;
+	}
+	return 1;
+}
+int main()
+{
+	char str[] = "112358";
+	int len = strlen(str);
+	int ret = AccumulationNumber(str,len);
+	printf("%d\n", ret);
+	system("pause");
+	return 0;
+}
