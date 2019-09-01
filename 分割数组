@@ -1,0 +1,33 @@
+//分割数组
+int Fun(int arr[], int len)
+{
+	int max = arr[0];
+	int leftmax = arr[0];
+	int count = 0;
+	int i = 0;
+	for (i = 0; i < len; i++)
+	{
+		//求得最新的max时进行替换max跟leftmax
+		if (arr[i]>max)
+		{
+			leftmax = max;
+			max = arr[i];
+			count = i - 1;
+		}
+		//如果arr[i]小于leftmax，那么左边数组从此处开始。
+		else if (arr[i] < leftmax)
+		{
+			count = i;
+		}
+	}
+	return count + 1;
+}
+int main()
+{
+	int arr[] = { 0,5,3,8,4,6,6,7 };
+	int len = sizeof(arr) / sizeof(arr[0]);
+	int ret = Fun(arr, len);
+	printf("%d\n", ret);
+	system("pause");
+	return 0;
+}
