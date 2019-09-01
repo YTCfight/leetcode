@@ -1,0 +1,70 @@
+//子数组最大平均数
+int LittArryMaxAver(int arr[], int len,int input)
+{
+	int sum = 0;
+	int i = 0;
+	int count = 1;
+	int Max = 0;
+	for (i = 0; i < len; i++)
+	{
+		if (sum < 0)
+		{
+			sum = arr[i];
+		}
+		else
+		{
+			count++;
+			sum += arr[i];
+			if (count = input)
+			{
+				if (sum>Max)
+				{
+					Max = sum;
+				}
+				count = 1;
+			}
+
+		}
+	}
+	return Max;
+}
+//每input个一组，然后与maxsum比较，然后加上arr[i]，减去arr[i-input]即input个中最前面那个元素，
+//合起来还是四个元素。然后比较得出maxsum即可。
+int  LittArryMaxAver1(int arr[], int len, int input,int *x,int *y)
+{
+	int maxsum = 0;
+	int sum = 0;
+	int i = 0;
+	*x = 0;
+	for (i = 0; i < len; i++)
+	{
+		sum += arr[i];
+		if (i >= input)
+		{
+			*x = i - input;
+			sum -= arr[i - input];
+		}
+		if (i >= input - 1)
+		{
+			if (sum>maxsum)
+			{
+				*y = i;
+				maxsum = sum;
+			}
+		}
+	}
+	return maxsum / input;
+}
+int main()
+{
+	int arr[] = { 1, 12, -5, -6, 50, 3 };
+	int len = sizeof(arr) / sizeof(arr[0]);
+	int input = 0;
+	scanf("%d", &input);
+	int x = -1;
+	int y = -1;
+	int ret = LittArryMaxAver1(arr, len,input,&x,&y);
+	printf("aver=%d,x=%d,y=%d\n", ret,x,y);
+	system("pause");
+	return 0;
+}
