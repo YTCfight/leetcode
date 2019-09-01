@@ -1,0 +1,37 @@
+//有序数组的平方
+#define NUMBER 7
+void Fun(int arr[])
+{
+	int hash[NUMBER] = { 0 };
+	int left = 0;
+	int right = NUMBER - 1;
+	int tmp = NUMBER-1;
+	while (left<right)
+	{
+		int leftsq = pow(arr[left], 2);
+		int rightsq = pow(arr[right], 2);
+		if (leftsq >= rightsq)
+		{
+			hash[tmp] = leftsq;
+			left++;
+		}
+		else
+		{
+			hash[tmp] = rightsq;
+			right--;
+		}
+		tmp--;
+	}
+	for (int i = 0; i < NUMBER; i++)
+	{
+		printf("%d ", hash[i]);
+	}
+	printf("\n");
+}
+int main()
+{
+	int arr[NUMBER] = {-1,-2,-3,-4,-5,-6,-7 };
+	Fun(arr);
+	system("pause");
+	return 0;
+}
