@@ -1,0 +1,84 @@
+//罗马数字翻译成整数
+//#endif
+int Fun(char* str)
+{
+	int sum = 0;
+	int i = 0;
+	while (str[i] != '\0' && sum<4000)
+	{
+		if (str[i] == 'I' && str[i + 1] == 'V')
+		{
+			sum += 4;
+			i += 2;
+			continue;
+		}
+		if (str[i] == 'I' && str[i + 1] == 'X')
+		{
+			sum += 9;
+			i += 2;
+			continue;
+		}
+		if (str[i] == 'X' && str[1] == 'L')
+		{
+			sum += 40;
+			i += 2;
+			continue;
+		}
+		if (str[i] == 'X' && str[1] == 'C')
+		{
+			sum += 90;
+			i += 2;
+			continue;
+		}
+		if (str[i] == 'C' && str[i + 1] == 'D')
+		{
+			sum += 400;
+			i += 2;
+			continue;
+		}
+		if (str[i] == 'C' && str[i + 1] == 'M')
+		{
+			sum += 900;
+			i += 2;
+			continue;
+		}
+		char ret = str[i];
+		switch (ret)
+		{
+		case 'I':
+			sum += 1;
+			break;
+		case 'V':
+			sum += 5;
+			break;
+		case 'X':
+			sum += 10;
+			break;
+		case' L':
+			sum += 50;
+			break;
+		case 'C':
+			sum += 100;
+			break;
+		case 'D':
+			sum += 500;
+			break;
+		case 'M':
+			sum += 1000;
+			break;
+		default:
+			printf("输入错误\n");
+			break;
+		}
+		i++;
+	}
+	return sum;
+}
+int main()
+{
+	char str[] = "III";
+	int ret = Fun(str);
+	printf("%d\n", ret);
+	system("pause");
+	return 0;
+}
