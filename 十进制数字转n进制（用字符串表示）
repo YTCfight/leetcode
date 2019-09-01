@@ -1,0 +1,44 @@
+//十进制数字转n进制（用字符串表示）
+ char* SevenBinaryNumber(int input,char* str)
+ {
+	 int k = 0;
+	 if (input < 0)
+	 {
+		 input = -input;
+		 *str = '-';
+		 k++;
+	 }
+	 while (input)
+	 {
+		 //将7改成n就可以转化成n进制数
+		 str[k] = input % 7+'0';
+         input /= 7;
+		 k++;
+	 }
+	 int tmp = 0;
+	 int p = 0;
+	 if (*str == '-')
+	 {
+		 p = 1;
+	 }
+	 int q = k - 1;
+	 while (q>=p)
+	 {
+		 tmp = str[p];
+		 str[p] = str[q];
+		 str[q] = tmp;
+		 p++;
+		 q--;
+	 }
+	 return str;
+ }
+ int main()
+ {
+	 int input = 0;
+	 scanf("%d", &input);
+	 char str[256] = { 0 };
+	 char * ret = SevenBinaryNumber(input,str);
+	 printf("%s\n", ret);
+	 system("pause");
+	 return 0;
+ }
