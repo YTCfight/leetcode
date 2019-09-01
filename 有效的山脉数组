@@ -1,0 +1,33 @@
+//有效的山脉数组
+//设置两个指针，分别从左右两侧向中间走，看是否是上升的过程。
+int fun(int arr[], int len)
+{
+	if (len < 3)
+	{
+		return 0;
+	}
+	int left = 0;
+	int right = len - 1;
+	while (left < right)
+	{
+		if (arr[left] < arr[left + 1] && arr[right]>arr[right + 1])
+		{
+			left++;
+			right--;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+	return 1;
+}
+int main()
+{
+	int arr[] = { 1, 2, 3, 6, 5, 4 };
+	int len = sizeof(arr) / sizeof(arr[0]);
+	int ret = fun(arr, len);
+	printf("%d\n", ret);
+	system("pause");
+	return 0;
+}
