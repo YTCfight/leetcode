@@ -1,0 +1,29 @@
+//各位相加
+int AddNumber(int input)
+{
+	int sum = 0;
+	while (input > 0)
+	{
+		sum += (input % 10);
+		input /= 10;
+	}
+	if (sum > 10)
+	{
+		return AddNumber(sum);
+	}
+	return sum;
+}
+//https://blog.csdn.net/dxx707099957/article/details/82390868
+int AddNumber1(int input)
+{
+	return 1 + (input - 1) % 9;
+}
+ int main()
+{
+	int input = 0;
+	scanf("%d", &input);
+	int ret = AddNumber1(input);
+	printf("%d\n", ret);
+	system("pause");
+	return 0;
+}
