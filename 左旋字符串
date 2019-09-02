@@ -1,0 +1,31 @@
+//左旋字符串
+void Reverse(char* str, int left, int right)
+{
+	char tmp = 0;
+	while (right > left)
+	{
+		tmp = str[left];
+		str[left] = str[right];
+		str[right] = tmp;
+		left++;
+		right--;
+	}
+}
+char* LeftTurnString(char* str, int len, int input)
+{
+	Reverse(str, 0, input-1);
+	Reverse(str,input, len - 2);
+	Reverse(str, 0, len - 2);
+	return str;
+}
+int main()
+{
+	char str[] = "abcdefg";
+	int len = sizeof(str) / sizeof(str[0]);
+	int input = 0;
+	scanf("%d", &input);
+	char *ret = LeftTurnString(str, len,input);
+	printf("%s\n", ret);
+	system("pause");
+	return 0;
+}
