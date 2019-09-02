@@ -1,0 +1,27 @@
+//交替二进制数
+int AlternateBinary(int input)
+{
+	int tmp = input%2; //保存上一位
+	int ret = 0;//保存当前位
+	input /= 2;
+	while (input)
+	{
+		ret = input % 2;
+		if (ret == tmp)
+		{
+			return 0;
+		}
+		tmp = ret;
+		input /= 2;
+	}
+	return 1;
+}
+int main()
+{
+	int input = 0;
+	scanf("%d", &input);
+	int ret = AlternateBinary(input);
+	printf("%d\n", ret);
+	system("pause");
+	return 0;
+}
