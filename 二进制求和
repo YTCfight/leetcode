@@ -1,0 +1,76 @@
+//二进制求和
+char* SumOfBinary(char* str1, char* str2, char* str3, int len1, int len2)
+{
+	int i = len1 - 2;
+	int j = len2 - 2;
+	int len = 0;
+	if (len1 > len2)
+	{
+		len = len1 + 1;
+	}
+	else
+	{
+		len = len2 + 1;
+	}
+	int h = len - 2;
+	while (i >= 0 && j >= 0)
+	{
+		str3[h] =   str1[i] + str2[j];
+		if (str3[h] > 146)//1 1 1
+		{
+			str3[h] = '1';
+			str3[h - 1]++;
+		}
+		else if (str3[h] > 97) //1 1 
+		{
+			str3[h] = '0';
+			str3[h - 1]++;
+		}
+		i--;
+		j--;
+		h--;
+	}
+	//len2>len1
+	if (i < 0 && j >= 0)
+	{
+		while (j >= 0)
+		{
+			str3[h] += str2[j];
+			if (str3[h] > 97)
+			{
+				str3[h] = '0';
+				str3[h - 1]++;
+			}
+			j--;
+			h--;
+		}
+	}
+	//len1>len2
+	else if (j < 0 && i >= 0)
+	{
+		while (i >= 0)
+		{
+			str3[h] += str2[i];
+			if (str3[h] > 97)//1 1
+			{
+				str3[h] = '0';
+				str3[h - 1]++;
+			}
+			i--;
+			h--;
+		}
+	}
+	return str3;
+}
+int main()
+{
+	char str1[] = "11";
+	char str2[] = "11";
+	int len1 = sizeof(str1) / sizeof(str1[0]);
+	int len2 = sizeof(str2) / sizeof(str1[0]);
+	char str3[256] = { '0', '0', '0', 0 };
+	char * ret = SumOfBinary(str1, str2,str3,len1,len2);
+	printf("%s\n", ret);
+	system("pause");
+	return 0;
+}
