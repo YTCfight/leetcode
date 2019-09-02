@@ -1,0 +1,46 @@
+//和为s的连续正数序列
+void SeekAddSArray(int arr[], int len, int input)
+{
+	int p = 0;//前面的指针
+	int q = 1;//后面的指针
+	int h = 0; //记录p的位置
+	int sum = arr[p] + arr[q];
+	while (q>=p && q<len)
+	{
+		//小于input
+		if (sum < input)
+		{
+			q++;
+			sum += arr[q];
+		}
+		//大于input
+		else if (sum>input)
+		{
+			sum -= arr[p];
+			p++;
+		}
+		else
+		{
+			h = p;
+			while (q >= h)
+			{
+				printf("%d ", h);
+				h++;
+			}
+			printf("\n");
+			//相等打印完后加上下一个数字继续循环
+			q++;
+			sum += arr[q];
+		}
+	}
+}
+int main()
+{
+	int arr[] = { 1, 2, 3, 4, 5, 6, 7, 8 };
+	int len = sizeof(arr) / sizeof(arr[0]);
+	int input = 0;
+	scanf("%d", &input);
+	SeekAddSArray(arr, len, input);
+	system("pause");
+	return 0;
+}
