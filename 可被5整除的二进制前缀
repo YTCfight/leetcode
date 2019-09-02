@@ -1,0 +1,59 @@
+//可被5整除的二进制前缀
+//刚开始想的很简单，不就是从头开始算出十进制，判断是否能被五整除吗？后来才发现 naive，早就超过位数了。
+/*那么自然的想到如果上一个数就能被5整除，再乘以2，当然也能被5整除，所以直接把它当做0不是很好？
+同样的如果上一个数被5除余数是1，就可以把它当做1来看，自然地想到 pre = pre % 5*/
+void BinaryDivisibleByFive(int *arr, int len)
+{
+	int i = 0;
+	int j = 0;
+	int h = 0;
+	int sum = 0;//计算十进制
+	for (i = 0; i < len; i++)
+	{
+		h = 0;
+		for (j = i; j >=0; j--)
+		{
+			sum += arr[j] * (int)pow(2, h);
+			h++;
+		}
+		if (sum % 5 == 0)
+		{
+			printf("True ");
+		}
+		else
+		{
+			printf("False ");
+		}
+	}
+	printf("\n");
+}
+//改进
+void BinaryDivisibleByFive1(int *arr, int len)
+{
+	int i = 0;
+	int pre = 0;
+	int h = len - 1;
+	for (i = 0; i < len;i++)
+	{
+		pre += arr[i] *(int) pow(2, h);
+		if (pre % 5 == 0)
+		{
+			printf("True ");
+		}
+		else
+		{
+			printf("False ");
+		}
+		pre %= 5;
+		h--;
+	}
+	printf("\n");
+}
+int main()
+{
+	int arr[] = { 0, 1, 1 };
+	int len = sizeof(arr) / sizeof(arr[0]);
+	BinaryDivisibleByFive1(arr, len);
+	system("pause");
+	return 0;
+}
