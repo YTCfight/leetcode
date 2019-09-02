@@ -1,0 +1,50 @@
+//翻转字符串
+//调换函数   
+void Reverse(char* str,int left, int right)
+{
+	char tmp = 0;
+	while (right > left)
+	{
+		tmp = str[left];
+		str[left] = str[right];
+		str[right] = tmp;
+		left++;
+		right--;
+	}
+}
+char* FlipString(char* str, int len)
+{
+	int left = 0;
+	int right = 1;
+	//全部翻转
+	Reverse(str, 0, len-2);
+	//每个单词翻转
+	while (right >= left && right < len)
+	{
+		while (str[right + 1] != ' ' && str[right+1]!='\0')
+		{
+			right++;
+		}
+		if (str[right + 1] == ' ')
+		{
+			Reverse(str, left, right);
+			right += 2;
+			left = right;
+		}
+		else
+		{
+			Reverse(str, left, right);
+			break;
+		}
+	}
+	return str;
+}
+int main()
+{
+	char str[] = "i am a student.";
+	int len = sizeof(str) / sizeof(str[0]);
+	char* ret = FlipString(str, len);
+	printf("%s\n", ret);
+	system("pause");
+	return 0;
+}
