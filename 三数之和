@@ -1,0 +1,95 @@
+ //三数之和
+ //方法一：暴力解决法
+ void SumOfThreeNumber(int arr[], int len, int input)
+ {
+	 int i = 0;
+	 int j = 0;
+	 int h = 0;
+	 for (i = 0; i < len; i++)
+	 {
+		 for (j = i + 1; j < len; j++)
+		 {
+			 for (h = j + 1; h < len; h++)
+			 {
+				 if (arr[i] + arr[j] + arr[h] == input)
+				 {
+					 printf("%2d %2d %2d\n", arr[i], arr[j], arr[h]);
+				 }
+			 }
+		 }
+	 }
+ }
+ int main()
+ {
+	 int arr[] = { -1, 0, 1, 2, -1, 4 };
+	 int len = sizeof(arr) / sizeof(arr[0]);
+	 int input = 0;
+	 scanf("%d", &input);
+	 SumOfThreeNumber(arr, len, input);
+	 system("pause");
+	 return 0;
+ }
+#endif
+//方法二：三指针法（先排序）
+ void SumOfThreeNumber(int arr[], int len, int input)
+ {
+	 //先排序
+	 int i = 0;
+	 int j = 0;
+	 for (i = 0; i < len - 1; i++)
+	 {
+		 for (j = 0; j < len - 1 - i; j++)
+		 {
+			 if (arr[j]>arr[j + 1])
+			 {
+				 int tmp = arr[j];
+				 arr[j] = arr[j + 1];
+				 arr[j + 1] = tmp;
+			 }
+		 }
+	 }
+	 int p = 0;
+	 int q = 1;
+	 int h = len-1;
+	 while (p < h)
+	 {
+		 //当三者之和小于input时，q中间的指针往后走。
+		 while (arr[p] + arr[q] + arr[h] <= input && q<=h)
+		 {
+			 //当中间的指针与后面的指针相遇时。
+			 if (arr[p] + arr[q] + arr[h] <= input && q == h)
+			 {
+				 p++;
+				 q = p + 1;
+				 break;
+			 }
+			 // //当三者相等时
+			 else if (arr[p] + arr[q] + arr[h] == input && q<h)
+			 {
+				 printf("%d %d %d\n", arr[p], arr[q], arr[h]);
+				 h--;
+				 q = p;
+			 }
+			 else
+			 {
+				 q++;
+			 }
+		 }
+		 //当三者之和大于input时。
+		 if (arr[p] + arr[q] + arr[h]>input)
+		 {
+			 h--;
+			 q = p;
+		 }
+	 }
+ }
+ int main()
+ {
+	 int arr[] = { -1, 0, 1, 2, -1, -4,2 }; //2 2 -4   -4 -1 -1 0 1 2 2 
+	 int len = sizeof(arr) / sizeof(arr[0]);
+	 int input = 0;
+	 scanf("%d", &input);
+	 SumOfThreeNumber(arr, len, input);
+	 system("pause");
+	 return 0;
+ }
