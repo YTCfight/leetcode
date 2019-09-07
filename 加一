@@ -1,0 +1,49 @@
+//加一
+ void Print(int arr[], int len)
+ {
+	 for (int i = 0; i < len; i++)
+	 {
+		 printf("%d", arr[i]);
+	 }
+	 printf("\n");
+ }
+ void AddOne(int arr[], int len)
+ {
+	 int i = 0;
+	 for (i = len - 1; i > 0; i--)
+	 {
+		 //情况一:123
+		 if (arr[i] < 9)
+		 {
+			 arr[i] += 1;
+			 break;
+		 }
+		 //情况二:499
+		 else if (arr[i] >= 9)
+		 {
+			 arr[i] = 0;
+			 arr[i - 1] += 1;
+		 }
+	 }
+	 //情况三：999
+	 if (arr[0] > 9)
+	 {
+		 int* str = (int *)malloc((len + 1) * 4);
+		 str[0] = 1;
+		 for (int j = 1; j < len + 1; j++)
+		 {
+			 str[j] = 0;
+		 }
+		 Print(str, len + 1);
+		 return;
+	 }
+	 Print(arr, len);
+ }
+ int main()
+ {
+	 int arr[] = { 8,9,9,9,9,8 };
+	 int len = sizeof(arr) / sizeof(arr[0]);
+	 AddOne(arr, len);
+	 system("pause");
+	 return 0;
+ }
