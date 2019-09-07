@@ -1,0 +1,102 @@
+ //移动零
+ //双指针法
+ void Print1(int arr[], int len)
+ {
+	 for (int i = 0; i < len; i++)
+	 {
+		 printf("%d ", arr[i]);
+	 }
+	 printf("\n");
+ }
+ void MoveZero(int arr[], int len)
+ {
+	 int left = 0;
+	 int right = len - 1;
+	 int i = left;
+	 int j = i + 1;
+	 while (left <= right)
+	 {
+		 i = left;
+		 j = i + 1;
+		 if (arr[left] != 0)
+		 {
+			 left++;
+		 }
+		 else if (arr[left] == 0)
+		 {
+			 while (j <= right)
+			 {
+				 arr[i] = arr[j];
+				 i++;
+				 j++;
+			 }
+			 arr[right] = 0;
+			 right--;
+		 }
+	 }
+	 Print1(arr, len);
+ }
+ //方法二：每个非0移动的步数就是该数字前面0的个数。1需要移动1步，3,12都需要移动两步
+ void Print(int arr[], int len)
+ {
+	 for (int i = 0; i < len; i++)
+	 {
+		 printf("%d ", arr[i]);
+	 }
+	 printf("\n");
+ }
+ void MoveZero1(int arr[], int len)
+ {
+	 int count = 0;
+	 for (int i = 0; i < len; i++)
+	 {
+		 if (arr[i] == 0)
+		 {
+			 count++;
+		 }
+		 else
+		 {
+			 arr[i - count] = arr[i];
+		 }
+	 }
+	 for (int j = len - count; j <len; j++)
+	 {
+		 arr[j] = 0;
+	 }
+	 Print(arr, len);
+ }
+ //方法三:把非0的数字放到数组前面，在数组后面补
+ void Print2(int arr[], int len)
+ {
+	 for (int i = 0; i < len; i++)
+	 {
+		 printf("%d ", arr[i]);
+	 }
+	 printf("\n");
+ }
+ void MoveZero2(int arr[], int len)
+ {
+	 int j = 0;
+	 int i = 0;
+	 for (i = 0; i < len; i++)
+	 {
+		 if (arr[i] != 0)
+		 {
+			 arr[j] = arr[i];
+			 j++;
+		 }
+	 }
+	 for (int k = j; k < len; k++)
+	 {
+		 arr[k] = 0;
+	 }
+	 Print2(arr, len);
+ }
+ int main()
+ {
+	 int arr[] = {1, 0, 1, 0, 3, 12 };
+	 int len = sizeof(arr) / sizeof(arr[0]);
+	 MoveZero2(arr, len);
+	 system("pause");
+	 return 0;
+ }
