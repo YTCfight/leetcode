@@ -1,0 +1,58 @@
+//数组的相对排序（暴力求解法）
+ void RelativeSortingOfArrays(int arr1[], int arr2[], int len1, int len2)
+ {
+	 int i = 0;
+	 int j = 0;
+	 int tmp = 0;
+	 int left = 0;
+	 int right = len1 - 1;
+	 while (j < len2)
+	 {
+		 left = i;
+		 right = len1 - 1;
+		 while (left < right)
+		 {
+			 while (left<right && arr1[left] == arr2[j])
+			 {
+				 left++;
+			 }
+			 while (left<right && arr1[right] != arr2[j])
+			 {
+				 right--;
+			 }
+			 tmp = arr1[left];
+			 arr1[left] = arr1[right];
+			 arr1[right] = tmp;
+		 }
+		 j++;
+		 i=left;
+	 }
+	 //进行后面数字的排序
+	 for (i = left; i < len1 - 1; i++)
+	 {
+		 for (j = left; j < len1 - 1; j++)
+		 {
+			 if (arr1[left]>arr1[right])
+			 {
+				 tmp = arr1[left];
+				 arr1[left] = arr1[right];
+				 arr1[right] = tmp;
+			 }
+		 }
+	 }
+	 for (i = 0; i < len1; i++)
+	 {
+	 printf("%d ", arr1[i]);
+	 }
+	 printf("\n");
+ }
+ int main()
+ {
+	 int arr1[] = { 2, 3, 1, 3, 2, 4, 6, 7, 9, 2, 19 };
+	 int arr2[] = { 2, 1, 4, 3, 9, 6 };
+	 int len1 = sizeof(arr1) / sizeof(arr1[0]);
+	 int len2 = sizeof(arr2) / sizeof(arr2[0]);
+	 RelativeSortingOfArrays(arr1, arr2, len1, len2);
+	 system("pause");
+	 return 0;
+ }
