@@ -1,0 +1,30 @@
+//较大分组的位置
+ void  LocationOfGroup(char* str, int len)
+ {
+	 int p = 0;
+	 int q = 0;
+	 while (q < len )
+	 {
+		 while(str[q] != str[q + 1])
+		 {
+			 q++;
+		 }
+		 p = q;
+		 while(q<len-1 && str[q] == str[q + 1])
+		 {
+			 q++;
+		 }
+		 if (q - p >= 2)
+		 {
+			 printf("%d %d\n", p, q);
+		 }
+	 }
+ }
+ int main()
+ {
+	 char str[] = "abcdddeeeeaabbbcd";
+	 int len = sizeof(str) / sizeof(str[0]);
+	 LocationOfGroup(str, len);
+	 system("pause");
+	 return 0;
+ }
