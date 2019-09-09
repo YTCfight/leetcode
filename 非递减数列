@@ -1,0 +1,35 @@
+//非递减数列
+ int NonDecreasing(int arr[], int len)
+ {
+	 int count = 0;
+	 int k = 0;
+	 for (int i = 0; i < len-1; i++)
+	 {
+		 if (count==0 && arr[i]>arr[i + 1])
+		 {
+			 k = i;
+			 count++;
+		 }
+		 if (count > 1)
+		 {
+			 //不可以形成非递减数列
+			 return -2;
+		 }
+	 }
+	 //返回下标
+	 if (count == 1)
+	 {
+       return k;
+	 }
+	 //可以形成非递减数列
+	 return -1;
+ }
+ int main()
+ {
+  int arr[] = { 1,2,3 };
+	 int len = sizeof(arr) / sizeof(arr[0]);
+	 int ret = NonDecreasing(arr, len);
+	 printf("%d\n", ret);
+	 system("pause");
+	 return 0;
+ }
