@@ -1,0 +1,41 @@
+ //x的平方根
+ //right是input的一半+1；mid是left与right的一半位置。
+ int SeekSqrRoot(int input)
+ {
+	 int left = 0;
+	 int right = (input/2)+1;//加一是为了1的平方根。
+	 while (left <= right)
+	 {
+		 int mid = left + (right - left) / 2;
+		 int num = mid*mid;
+		 if (num > input)
+		 {
+			 right = mid - 1;
+		 }
+		 else if (num < input)
+		 {
+			 left = mid + 1;
+		 }
+		 else
+		 {
+			 return mid;
+		 }
+	 }
+	 return -1;
+ }
+ int main()
+ {
+	 int input = 0;
+	 scanf("%d", &input);
+	 int ret = SeekSqrRoot(input);
+	 if (ret != -1)
+	 {
+		 printf("%d\n", ret);
+	 }
+	 else
+	 {
+		 printf("没找到\n");
+	 }
+	 system("pause");
+	 return 0;
+ }
