@@ -1,0 +1,58 @@
+ //判断子序列
+ //方法一：暴力求解法。
+ void SeekLittleString(char* str1, char* str2)
+ {
+	 int q = 0;
+	 int p = 0;
+	 int h = 0;
+	 while (str1[q] != '\0')
+	 {
+		 //找出str1中与str2的第一个相等的字符
+		 while (str1[q] != '\0' && str1[q] != str2[h])
+		 {
+			 q++;
+		 }
+		 if (str1[q] == '\0')
+		 {
+			 printf("false\n");
+			 return;
+		 }
+		 p = q;
+		 h++;
+		 //直接从str2的第二个字符比起。
+		 while (str2[h] != '\0')
+		 {
+			 if (str1[p] != str2[h] && str1[p] != '\0')
+			 {
+				 p++;
+			 }
+			 if (str1[p] == '\0')
+			 {
+				 break;
+			 }
+			 if (str1[p] == str2[h])
+			 {
+				 h++;
+			 }
+		 }
+		 //如果str2走到了/0，代表已经找到了
+		 if (str2[h] == '\0')
+		 {
+			 printf("true\n");
+			 return;
+		 }
+		 //否则，q走到下一个字符，h置位0.
+		 q++;
+		 h = 0;
+	 }
+	 printf("false\n");
+	 return;
+ }
+ int main()
+ {
+	 char str1[] = "bbahbgdd";
+	 char str2[] = "abc";
+	 SeekLittleString(str1, str2);
+	 system("pause");
+	 return 0;
+ }
