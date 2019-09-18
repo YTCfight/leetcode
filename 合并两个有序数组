@@ -1,0 +1,60 @@
+ //合并两个有序数组
+ //方法一:哈希表
+ void MergedArray(int arr1[], int arr2[], int len1, int len2)
+ {
+	 int hash[11] = { 0 };
+	 for (int i = 0; i < len1; i++)
+	 {
+		 hash[arr1[i]]++;
+	 }
+	 for (int i = 0; i < len2; i++)
+	 {
+		 hash[arr2[i]]++;
+	 }
+	 for (int i = 0; i < 11; i++)
+	 {
+		 while(hash[i] != 0)
+		 {
+			 printf("%d ",i);
+			 hash[i]--;
+		 }
+	 }
+	 printf("\n");
+ }
+ //方法二：双指针
+ void MergedArray1(int arr1[], int arr2[], int len,int len1,int len2)
+ {
+	 int end = len - 1;
+	 int end1 = len1 - 1;
+	 int end2 = len2 - 1;
+	 while (end >= 0)
+	 {
+		 if (arr1[end1] >= arr2[end2])
+		 {
+			 arr1[end] = arr1[end1];
+			 end1--;
+		 }
+		 else
+		 {
+			 arr1[end] = arr2[end2];
+			 end2--;
+		 }
+		 end--;
+	 }
+ }
+ int main()
+ {
+	 int arr1[13] = { 1, 2, 3, 4, 8 };
+	 int arr2[] = { 3, 4, 5, 6, 7, 8, 9, 10 };
+	 int len = sizeof(arr1) / sizeof(arr1[0]);
+	 int len1 = 5;
+	 int len2 = sizeof(arr2) / sizeof(arr2[0]);
+	 MergedArray1(arr1, arr2, len,len1, len2);
+	 for (int i = 0; i < (len1 + len2); i++)
+	 {
+		 printf("%d ", arr1[i]);
+	 }
+	 printf("\n");
+	 system("pause");
+	 return 0;
+ }
