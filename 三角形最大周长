@@ -1,0 +1,59 @@
+import java.util.Arrays;
+
+public class Project {
+    public static void main(String[] args) {
+        //三角形的最大周长（排序算法）
+        int [] arr = new int [] {3,6,2,3};
+        int ret = maxLongOfTriangle(arr);
+        System.out.println(ret);
+    }
+    public static int maxLongOfTriangle(int [] arr) {
+        //快排
+        int left = 0;
+        int right = arr.length - 1;
+        int ret = Partion(left,right,arr);
+        while (ret != arr.length - 1) {
+            if (ret < arr.length - 1) {
+                left = ret + 1;
+                ret = Partion(left,right,arr);
+            } else {
+                right = ret - 1;
+                ret = Partion(left, right, arr);
+            }
+        }
+        int tmp = arr.length - 1;
+        while ((tmp - 2) >= 0) {
+            int a = arr[tmp];
+            int b = arr[tmp - 1];
+            int c = arr[tmp - 2];
+            if (b + c > a) {
+                return a + b + c;
+            }
+            tmp--;
+        }
+        return -1;
+    }
+    public static int Partion(int left,int right,int [] arr) {
+        int tmp = arr[left];
+        while (left < right) {
+            while (left < right && arr[right] >= tmp) {
+                right--;
+            }
+            if (left >= right) {
+                break;
+            } else {
+                arr[left] = arr[right];
+            }
+            while (left < right && arr[left] <=tmp) {
+                left++;
+            } 
+            if (left >=right) {
+                break;
+            } else {
+                arr[right] = arr[left];
+            }
+        }
+        arr[left] = tmp;
+        return left;
+    }
+}
