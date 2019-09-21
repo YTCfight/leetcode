@@ -1,0 +1,18 @@
+import java.util.Arrays;
+
+public class Project {
+    public static void main(String[] args) {
+        //数组拆分
+        int [] arr = new int [] {1,4,3,2};
+        int ret = maxOfArray(arr);
+        System.out.println(ret);
+    }
+    public static int maxOfArray(int [] arr) {
+        Arrays.sort(arr);
+        int sum =  0;
+        for (int i = 0; i < arr.length; i += 2) {
+            sum += arr[i];
+        }
+        return sum;
+    }
+}
