@@ -1,0 +1,71 @@
+public class Project {
+    public static void main(String[] args) {
+        //排序数组
+        int [] arr = new int [] {5,2,3,1};
+        arraySort(arr);
+        //System.out.println(Arrays.toString(arr));
+    }
+    冒泡排序
+    public static void arraySort(int [] arr) {
+        for (int i = 0; i < arr.length - 1; i++) {
+            for (int j = 0; j < arr.length - 1 - i; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int tmp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = tmp;
+                }
+            }
+       }
+    }
+    快排
+    public static void arraySort(int [] arr) {
+        int left = 0;
+        int right = arr.length - 1;
+        int ret = Partion(left,right,arr);
+        while (ret != arr.length - 1) {
+            if (ret < arr.length - 1) {
+                left = ret + 1;
+                ret = Partion(left,right,arr);
+            } else {
+                right = ret - 1;
+                ret = Partion(left,right,arr);
+            }
+        }
+    }
+    public static int Partion(int left,int right,int [] arr) {
+        int tmp = arr[left];
+        while (left < right) {
+            while (left < right && arr[right] >= tmp) {
+                right--;
+            }
+            if (left >= right) {
+                break;
+            } else {
+                arr[left] = arr[right];
+            }
+            while (left < right && arr[left] <= tmp) {
+                left++;
+            } 
+            if (left >= right) {
+                break;
+            } else {
+                arr[right] = arr[left];
+            }
+        }
+        arr[left] = tmp;
+        return left;
+    }
+    哈希表
+    public static void arraySort(int [] arr) {
+        int [] hash = new int [6];
+        for (int i = 0; i < arr.length; i++) {
+            hash[arr[i]]++;
+        }
+        for (int i = 0; i < hash.length; i++) {
+            while (hash[i] != 0) {
+                System.out.print(i + " ");
+                hash[i]--;
+            }
+        }
+    }
+}
