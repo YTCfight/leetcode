@@ -1,0 +1,42 @@
+//冒泡排序法
+    public static int maxOfTrianglePerimeter(int [] arr) {
+        int a = -1;
+        int b = -1;
+        int c = -1;
+        int j = 0;
+        for (int i = 0; i < arr.length - 1; i++) {
+            for (j = 0; j < arr.length - 1 - i; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int tmp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = tmp;
+                }
+            }
+            //先让把最大的数字赋值给a
+            if (i == 0) {
+                a = arr[j];
+            }
+            //把第二趟即第二大的数字赋值给b
+            else if (i == 1) {
+                b = arr[j];
+            } 
+            //把第三趟即第三大的数字赋值给c，然后进行比较
+            else if (i == 2) {
+                c = arr[j];
+                if (b + c > a) {
+                    return a + b + c;
+                }
+            }
+            //第四趟及以后就将a，b赋完值后将最小的数字赋值给c
+            else {
+                a = b;
+                b = c;
+                c = arr[j];
+            }
+            //三个数字赋完值后进行比较（大于第三趟后）
+            if (c != -1 && b + c > a) {
+                return a + b + c;
+            }
+        }
+        return -1;
+    }
