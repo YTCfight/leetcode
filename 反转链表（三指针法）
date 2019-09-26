@@ -1,0 +1,25 @@
+public void flipList() {
+        //有0个或者1个元素的时候
+        if (this.head == null || this.head.next == null) {
+            return;
+        }
+        //有两个元素的时候
+        if (this.head.next.next == null) {
+            this.head.next.next = this.head;
+            this.head.next = null;
+            return;
+        }
+        LinkedNode2 p = this.head;
+        LinkedNode2 q = p.next;
+        LinkedNode2 k = q.next;
+        p.next = null;
+        while (k != null) {
+            q.next = p;
+            p = q;
+            q = k;
+            k = k.next;
+        }
+        this.head = q;
+        q.next = p;
+        return;
+    }
