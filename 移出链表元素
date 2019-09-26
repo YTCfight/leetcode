@@ -1,0 +1,32 @@
+//删除元素（可以全部删除某个数字）
+    public void remove(int toRemove) {
+        //空链表时
+        if (this.head == null) {
+            return;
+        }
+        //删除头结点时
+        if (head.data == toRemove) {
+            head = head.next;
+            return;
+        }
+        //删除中间元素时,首先找到要删除元素的前一个元素。
+        LinkedNode2 code = this.head;
+        while (code != null) {
+            //找到删除元素的前一个元素。
+            LinkedNode2 prev = searchPos(toRemove);
+            LinkedNode2 cur = head;  //随便给cur初始化一个值
+            if (prev != null) {
+                cur = prev.next;
+                prev.next = cur.next;
+            }
+            code = code.next;
+        }
+    }
+    private LinkedNode2 searchPos(int toRemove) {
+        for (LinkedNode2 cur = this.head; cur.next != null; cur = cur.next) {
+            if (cur.next.data == toRemove) {
+                return cur;
+            }
+        }
+        return null;
+    }
