@@ -1,0 +1,8 @@
+//双指针法
+        List1 slow = this.head;
+        List1 fast = this.head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow.data;
