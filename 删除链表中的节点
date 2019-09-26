@@ -1,0 +1,87 @@
+class List1 {
+    public int data = 0;
+    public List1 next = null;
+
+    public List1(int data) {
+        this.data = data;
+    }
+}
+public class List {
+    List1 head = null;
+
+    //尾插
+    public void addLast(int elem) {
+        List1 node = new List1(elem);
+        if (this.head == null) {
+            this.head = node;
+            return;
+        }
+        List1 cur = this.head;
+        while (cur.next != null) {
+            cur = cur.next;
+        }
+        cur.next = node;
+        return;
+    }
+
+    //打印链表
+
+    public void display() {
+        System.out.print("[");
+        for (List1 node = this.head; node != null; node = node.next) {
+            System.out.print(node.data);
+            if (node.next != null) {
+                System.out.print(", ");
+            }
+        }
+        System.out.println("]");
+    }
+
+
+    //删除链表
+    public void remove(int toRemove) {
+        if (this.head == null) {
+            return;
+        }
+        if (this.head.data == toRemove) {
+            this.head = this.head.next;
+            return;
+        }
+        List1 pos = search(toRemove);
+        List1 cur = pos.next;
+        pos.next = cur.next;
+        return;
+    }
+
+    private List1 search(int toRemove) {
+        for (List1 node = this.head; node.next != null; node = node.next) {
+            if (node.next.data == toRemove) {
+                return node;
+            }
+        }
+        return null;
+    }
+
+}
+
+
+
+
+
+//测试
+public class Practice {
+    public static void main(String[] args) {
+    testRemove();
+    }
+    public static void testRemove() {
+        System.out.println("测试删除");
+        List list = new List();
+        list.addLast(1);
+        list.addLast(2);
+        list.addLast(3);
+        list.addLast(4);
+        list.display();
+        list.remove(1);
+        list.display();
+    }
+}
