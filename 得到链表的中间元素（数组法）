@@ -1,0 +1,20 @@
+ //得到链表的中间节点（数组法）
+    public int removeMidList() {
+        List1 cur = this.head;
+        while (cur != null) {
+            node[size++] = cur;
+            if (size + 1 == node.length) {
+                relloc();
+            }
+            cur = cur.next;
+        }
+        return node[size / 2].data;
+    }
+    private void relloc() {
+        List1 [] newNode = new List1[this.node.length * 2];
+        for (int i = 0; i < this.node.length; i++) {
+            newNode[i] = this.node[i];
+        }
+        this.node = newNode;
+        return;
+    }
