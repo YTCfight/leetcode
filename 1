@@ -1,0 +1,29 @@
+//回文链表
+    public boolean huiwenList() {
+       int len = 0;
+       for (List1 cur = this.head; cur != null; cur = cur.next) {
+           len++;
+       }
+       List1 cur = head;
+       List1 prev = null;
+       //翻转前半段链表
+       for (int i = 0; i < len / 2; i++) {
+           List1 tmp = cur.next;
+           cur.next = prev;
+           prev = cur;
+           cur = tmp;
+       }
+       //奇数个链表节点cur后移一位
+       if ((len & 1) == 1) {
+           cur = cur.next;
+       }
+        List1 p = cur;
+       List1 q = prev;
+       //遍历比较cur与prev的值是否相等
+       for (p = cur, q = prev; p != null && q != null; p = p.next, q = q.next) {
+                if (p.data != q.data) {
+                    return false;
+                }
+       }
+       return true;
+    }
