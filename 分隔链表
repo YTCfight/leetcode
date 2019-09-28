@@ -1,0 +1,49 @@
+//分隔链表
+    public void separateList(int elem) {
+        LinkedNode p = null;
+        LinkedNode q = null;
+        LinkedNode node = this.head;
+        //找出前面的头结点
+        while (node != null) {
+            if (node.data < elem) {
+                p = node;
+                break;
+            }
+            node = node.next;
+        }
+        if (node == null) {
+            return;
+        }
+        node = head;
+        //找出后面的头结点
+        while (node != null) {
+            if (node.data >= elem) {
+                q = node;
+                break;
+            }
+            node = node.next;
+        }
+        if (node == null) {
+            return;
+        }
+        node = this.head;
+        LinkedNode p1 = p;
+        LinkedNode q1 = q;
+        while (node != null) {
+            if (node.data < elem && node != p1) {
+                p1.next = node;
+                p1 = node;
+            } else if (node.data >= elem && node != q1){
+                q1.next = node;
+                q1 = node;
+            }
+            node = node.next;
+        }
+        //合并链表
+        p1.next = q;
+        if (q1.next != null) {
+            q1.next = null;
+        }
+        this.head = p;
+        return;
+    }
