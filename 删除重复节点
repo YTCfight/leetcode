@@ -1,0 +1,22 @@
+    //删除重复节点
+    public void removeRepeatList() {
+        LinkedNode prev = this.head; //最后
+        LinkedNode node = this.head; //中间
+        LinkedNode cur = this.head;  //最先走的
+        while (cur != null) {
+            if (node.data != cur.data) {
+                prev.next = node;
+                prev = node;
+                node = cur;
+                if (cur != null)
+                {
+                    cur = cur.next;
+                }
+            } else {
+                cur = cur.next;
+            }
+        }
+        prev.next = node;
+        node.next = null;
+        return;
+    }
