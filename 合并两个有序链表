@@ -1,0 +1,53 @@
+//合并两个有序的链表
+    public void mergeList() {
+        //当两个链表为空时
+        if (this.head == null && this.head1 == null) {
+            return;
+        }
+        LinkedNode prev = this.head;
+        LinkedNode cur = this.head1;
+        //newhead为新链表的头结点
+        LinkedNode newhead = null;
+        //newhead为两个链表的较小的节点
+        if (prev.data <= cur.data) {
+            newhead = prev;
+            prev = prev.next;
+        } else {
+            newhead = cur;
+            cur = cur.next;
+        }
+        //p为新链表中走的节点
+        LinkedNode p = newhead;
+        //当两个链表都不为空时，p指向两个链表中的较小值
+        while (prev != null && cur != null) {
+            if (prev.data <= cur.data) {
+                p.next = prev;
+                p = prev;
+                prev = prev.next;
+            } else {
+                p.next = cur;
+                p = cur;
+                cur = cur.next;
+            }
+        }
+        //当其中一个链表走完时，p指向另一个链表，并走完
+        while (prev == null && cur != null) {
+            p.next = cur;
+            p = cur;
+            cur = cur.next;
+        }
+        while (cur == null && prev != null) {
+            p.next = prev;
+            p = prev;
+            prev = prev.next;
+        }
+        //打印链表
+        System.out.print("[");
+        for (LinkedNode q = this.head1; q != null; q = q.next) {
+            System.out.print(q.data);
+            if (q.next != null) {
+                System.out.print(", ");
+            }
+        }
+        System.out.println("]");
+    }
