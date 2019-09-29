@@ -1,0 +1,36 @@
+ //奇偶链表
+    public void parityList() {
+        if (this.head == null || this.head.next == null) {
+            return;
+        }
+        //找出奇数链表的头结点
+        LinkedNode prev = this.head;
+        //奇数链表走的节点
+        LinkedNode p = prev;
+        //找出偶数链表的头结点
+        LinkedNode cur = this.head.next;
+        //偶数链表走的节点
+        LinkedNode q = cur;
+        LinkedNode node = cur.next;
+        //设置标签，用来区分奇偶节点
+        int flag = 1;
+        while (node != null) {
+            if (flag == 1) {
+                p.next = node;
+                p = node;
+            } else {
+                q.next = node;
+                q = node;
+            }
+            node = node.next;
+            flag = -flag;
+        }
+        //奇偶链表连接
+        p.next = cur;
+        //如果链表的最后一个节点不是偶数，那么把偶数的最后一个节点的next 置为null
+        if (q.next != null) {
+            q.next = null;
+        }
+        this.head = prev;
+        return;
+    }
