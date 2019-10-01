@@ -1,0 +1,53 @@
+  public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        if (l1 == null) {
+            return l2;
+        }
+        if (l2 == null) {
+            return null;
+        }
+        ListNode newHead = new ListNode(-1);
+        ListNode newTail = newHead;
+        //当两个数字都不为 null 时进行对位相加
+        while (l1 != null && l2 != null) {
+            if (l1.val + l2.val < 10) {
+                newTail.next = new ListNode(l1.val + l2.val);
+                newTail = newTail.next;
+            } else {
+                newTail.next = new ListNode(l1.val + l2.val);
+                newTail = newTail.next;
+            }
+            l1 = l1.next;
+            l2 = l2.next;
+        }
+        //当 l1 为 null 时，新链表继续加 l2
+        if (l1 == null && l2 != null) {
+            while (l2 != null) {
+                newTail.next = new ListNode(l2.val);
+                newTail = newTail.next;
+                l2 = l2.next;
+            }
+        }
+        //当 l2 为 null 时，新链表继续相加 l1
+        if (l2 == null && l1 != null) {
+            while (l1 != null) {
+                newTail.next = new ListNode(l1.val);
+                newTail = newTail.next;
+                l1 = l1.next;
+            }
+        }
+        //最后根据新链表的数字进行进位
+           //进位
+            for (ListNode cur = newHead; cur != null; cur = cur.next) {
+                if (cur.val >= 10 && cur.next != null) {
+                cur.val -= 10;
+                cur.next.val += 1;
+            }
+            if (cur.val >= 10 && cur.next == null) {
+                cur.val -= 10;
+                ListNode p = new ListNode(1);
+                cur.next = p;
+                }
+            }
+            //最后返回新链表的第二个节点，第一个节点是傀儡节点
+            return newHead.next;
+    }
