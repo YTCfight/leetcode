@@ -1,0 +1,46 @@
+ //两数相加2
+    public LinkedNode addTwoNumbers(LinkedNode l1, LinkedNode l2) {
+        if (l1 == null) {
+            return l2;
+        }
+        if (l2 == null) {
+            return l1;
+        }
+        LinkedNode newHead = new LinkedNode(-1);
+        LinkedNode newTail = newHead;
+        int lenl1 = size1(l1);
+        int lenl2 = size1(l2);
+        if (lenl1 > lenl2) {
+            int offset = lenl1 - lenl2;
+            for (int i = 0; i < offset; i++) {
+                newTail.next = new LinkedNode(l1.data);
+                newTail = newTail.next;
+                l1 = l1.next;
+            }
+        } else {
+            int offset = lenl2 - lenl1;
+            for (int i = 0; i < offset; i++) {
+                newTail.next = new LinkedNode(l2.data);
+                newTail = newTail.next;
+                l2 = l2.next;
+            }
+        }
+        while (l1 != null && l2 != null) {
+            newTail.next = new LinkedNode(l1.data + l2.data);
+            newTail = newTail.next;
+            l1 = l1.next;
+            l2 = l2.next;
+        }
+        //进位
+        LinkedNode prev = newHead.next;  //前一位
+        LinkedNode cur = prev.next;      //后一位
+        while (cur != null) {
+            if (cur.data >= 10) {
+                cur.data -= 10;
+                prev.data += 1;
+            }
+            prev = cur;
+            cur = cur.next;
+        }
+        return newHead;
+    }
