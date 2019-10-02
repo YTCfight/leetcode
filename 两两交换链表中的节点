@@ -1,0 +1,17 @@
+ public ListNode swapPairs(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        //二者中的第一个节点
+        ListNode first = head;
+        //二者中的第二个节点
+        ListNode second = head.next;
+        //第三个节点
+        ListNode next = second.next;
+        //改变第二个节点的指向
+        second.next = first;
+        //递归下面的两个节点
+        first.next = swapPairs(next);
+        //返回第二个节点
+        return second;
+    }
