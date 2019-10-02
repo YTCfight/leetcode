@@ -1,0 +1,50 @@
+ public void reorderList(ListNode head) {
+        if (head == null || head.next == null) {
+            return;
+        }
+        //先找出中间节点
+        int steps = size(head) / 2;
+        ListNode node = head;
+        for (int i = 0; i < steps; i++) {
+            node = node.next;
+        }
+        //将后半部分进行逆置
+        ListNode prev = null;
+        ListNode cur = node;
+        while (cur != null) {
+            ListNode next = cur.next;
+            if (next == null) {
+                node = cur;
+            }
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+        }
+        ListNode newHead = new ListNode(-1);
+        ListNode newTail = newHead;
+        ListNode p = head;
+        ListNode q = node;
+        int flag = 1;
+        while (q != null && p != null) {
+            if (flag == 1 && p != null) {
+                newTail.next = p;
+                newTail = newTail.next;
+                p = p.next;
+            }
+            if (flag == -1 && q != null) {
+                newTail.next = q;
+                newTail = newTail.next;
+                q = q.next;
+            }
+            flag = -flag;
+        }
+        head = newHead.next;
+        return;
+    }
+    private int size(ListNode head) {
+        int count = 0;
+        for (ListNode cur = head; cur != null; cur = cur.next) {
+            count++;
+        }
+        return count;
+    }
