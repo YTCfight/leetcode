@@ -58,3 +58,18 @@
 	 system("pause");
 	 return 0;
  }
+ 
+ //方法三
+ int [] nums1Copy = Arrays.copyOf(nums1,m);
+        int p = 0;
+        int q = 0;
+        int k = 0;
+        while (p < m && q < n) {
+            nums1[k++] = nums1Copy[p] < nums2[q] ? nums1Copy[p++] : nums2[q++];
+        }
+        if (p < m) {
+            System.arraycopy(nums1Copy,p,nums1,p+q,m + n - p - q);
+        }
+        if (q < n) {
+            System.arraycopy(nums2,q,nums1,p+q,m + n - p - q);
+        }
