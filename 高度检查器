@@ -1,0 +1,18 @@
+//思路：先创建出一个正确的顺序数组，然后拿原来的数组与正确的数组比较不同的元素.
+public int heightChecker(int[] heights) {
+        int [] arr = new int [101];
+        for (int i : heights) {
+            arr[i]++;
+        }
+        int count = 0;
+        for (int j = 1, i = 0; j < arr.length; j++) {
+            while (arr[j] > 0) {
+                if (heights[i] != j) {
+                    count++;
+                }
+                i++;
+                arr[j]--;
+            }
+        }
+        return count;
+    }
