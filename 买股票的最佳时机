@@ -1,0 +1,20 @@
+  public int maxProfit(int[] prices) {
+        if (prices.length == 0) {
+            return 0;
+        }
+        int start = prices[0];
+        //int end = prices[0];
+        int result = -1;
+        for (int i = 0; i < prices.length; i++) {
+            //找出最小的买入点
+            if (prices[i] < start) {
+                start = prices[i];
+                continue;
+            }
+            //后面的价格与买入价格作差看一下差价，记录最大差价
+            if (prices[i] - start > result) {
+                result = prices[i] - start;
+            }
+        }
+        return result;
+    }
