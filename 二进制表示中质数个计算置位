@@ -1,0 +1,17 @@
+ public int countPrimeSetBits(int L, int R) {
+        int count = 0;
+        for (int i = L; i <= R; i++) {
+            int ret = Integer.bitCount(i);
+            int j = 0;
+            for (j = 2; j < ret; j++) {
+                if (ret % j == 0) {
+                    //不是质数
+                    break;
+                }
+            }
+            if (j == ret) {
+                count++;
+            }
+        }
+        return count;
+    }
