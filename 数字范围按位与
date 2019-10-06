@@ -1,0 +1,11 @@
+ public int rangeBitwiseAnd(int m, int n) {
+        int count = 0;
+       while (m != n) {
+           m >>= 1;
+           n >>= 1;
+           count++;
+       }
+        return n << count;
+    }
+    //此题就是比较高位有没有相同的位数，因为低位如果进位就会发生变化，只要某位上有一个0，那么该位总体与的结果必定为0，
+    //所以尽可能的比较出高位相同的位数即可。
