@@ -1,0 +1,35 @@
+//先对 arr 数组进行排序，然后统计相邻数字是否相同，把结果放到 nums 数组（nums数组存放arr中数字出现的次数），
+//然后对 nums 数组排序，再查看相邻的数字有没有相同的，如果有，直接返回 false ，如果查看到最后没有相同的数字，那么就返回 true
+public boolean uniqueOccurrences(int[] arr) {
+        Arrays.sort(arr);
+        int [] nums = new int [arr.length];
+        int count = 1;
+        int j = 0;
+        //把 arr 每个数字出现的次数统计到 nums数组中
+        for (int i = 0; i < arr.length - 1; i++) {
+            if (arr[i] == arr[i + 1]) {
+                count++;
+            } else {
+                nums[j] = count;
+                j++;
+                count = 1;
+            }
+        }
+        //arr中最后的一个数字特殊处理
+        if (count > 1) {
+            nums[j] = count;
+        } else {
+            nums[j] = 1;
+        }
+        //判断出现次数
+       Arrays.sort(nums);
+        for (int i = 0; i < nums.length - 1; i++) {
+            while (i < nums.length - 1 && nums[i] == 0) {
+                i++;
+            }
+            if (nums[i] == nums[i + 1]) {
+                return false;
+            }
+        }
+        return true;
+    }
