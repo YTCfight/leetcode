@@ -1,0 +1,16 @@
+//从0~sqrt（c）的两端试一下两个数字的平方和
+//如果比c大，则right--； 如果比c小，则left++；
+public boolean judgeSquareSum(int c) {
+        int left = 0;
+        int right = (int)Math.sqrt(c);
+        while (left <= right) {
+            if (left * left + right * right < c) {
+                left++;
+            } else if (left * left + right * right > c) {
+                right--;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
