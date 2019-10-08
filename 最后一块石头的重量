@@ -1,0 +1,24 @@
+ public int lastStoneWeight(int[] stones) {
+        int num = stones.length;
+        //只有一个数字是特殊处理
+        if(num == 1) {
+            return stones[0];
+        }
+        while (num > 1) {
+            //先进行一次排序，为比较最后两个石头重量做准备还有为上一次如果两个石头不相等而产生的新石头排序，放到该放的位置。
+            Arrays.sort(stones);
+            //当最后两个石头相等时
+            if (stones[num - 1] == stones[num - 2]) {
+                num -= 2;
+            } else if (stones[num - 1] != stones[num - 2]) {    //当最后两个石头不相等时
+                stones[num - 2] = stones[num - 1] - stones[num - 2];
+                num--;
+            }
+            //如果还有一个石头，返回其重量
+            if (num == 1) {
+                return stones[0];
+            }
+        }
+        //如果没有石头返回 0 
+        return 0;
+    }
