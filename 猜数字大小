@@ -1,0 +1,53 @@
+ 
+ 
+ //三分法：如果比第一个三等分点小，那么就把第一段继续分为三段寻找；如果比第二个三等分点大，那么就把第三段继续分为三段寻找；
+ //如果在第二段，那么就把第二段分为三份继续寻找，如果某个点等于0，就直接返回即可。
+ 
+ int guessNumber(int n) {
+        //三分法
+        int left = 0;
+        int right = n;
+        int mid1 = 0;
+        int mid2 = 0;
+        while (left <= right) {
+            mid1 = left + (right - left) / 3;
+            mid2 = right - (right - left) / 3;
+            int ret1 = guess(mid1);
+            int ret2 = guess(mid2);
+            if (ret1 == -1) {
+                right = mid1 - 1;
+            } else if (ret2 == 1) {
+                left = mid2 + 1;
+            } else if(ret1 == 0) {
+                return mid1;
+            } else if (ret2 == 0) {
+                break;
+            } else {
+                left = mid1 + 1;
+                right = mid2 - 1;
+            }
+        }
+        return mid2;
+    }
+    
+    
+    
+    //二分法
+    int guessNumber(int n) {
+        //二分法
+        int left = 0;
+        int right = n;
+        int mid = 0;
+        while (left <= right) {
+            mid = left + (right - left) / 2;
+            int ret = guess(mid);
+            if (ret == -1) {
+                right = mid - 1;
+            } else if (ret == 1) {
+                left = mid + 1;
+            } else {
+                break;
+            }
+        }
+        return mid;
+    }
