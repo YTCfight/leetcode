@@ -1,0 +1,43 @@
+ public ListNode rotateRight(ListNode head, int k) {
+        //排除没有节点的情况
+        if (head == null) {
+            return null;
+        }
+        int len = size(head);
+        //如果 k 为链表长度的整数倍，那么原链表就不用动。
+        if (len != 0 && k % len == 0) {
+            return head;
+        }
+        //首先简化 k 
+        k = k % len;
+        //创建新的链表，符合题意的链表就插入
+        ListNode newHead = new ListNode(-1);
+        ListNode newTail = newHead;
+        ListNode cur = head;
+        //先使链表走到倒数第 k 个节点处
+        int offset = len - k;
+        for (int i = 0; i < offset; i++) {
+            cur = cur.next;
+        }
+        //prev 记录下链表停下的位置，因为当下面的链表还会走到该处停止。
+        ListNode prev = cur;
+        //先把倒数第 k 个节点到最后的节点插入到新链表中。
+        for (ListNode ret = cur; ret != null; ret= ret.next) {
+            newTail.next = new ListNode(ret.val);
+            newTail = newTail.next;
+        }
+        //再插入从头结点开始到prev处的节点。
+        for (ListNode node = head; node != prev && node != null; node = node.next) {
+             newTail.next = new ListNode(node.val);
+            newTail = newTail.next;
+        }
+        //返回新头结点的下一个节点，因为新的头结点是一个傀儡节点。
+        return newHead.next;
+    }
+    private int size(ListNode head) {
+        int count = 0;
+        for (ListNode cur = head; cur != null; cur = cur.next) {
+            count++;
+        }
+        return count;
+    }
