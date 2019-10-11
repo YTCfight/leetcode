@@ -1,0 +1,31 @@
+ public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+     //创建一个新的数组
+        int k = 0;
+        int j = 0;
+        int [] arr = new int [nums1.length];
+        //num1
+        for (int i = 0; i < nums1.length; i++) {
+            //num2
+            int flag = 1;
+            for (j = 0; j < nums2.length; j++) {
+                //先在nums2中找到与num1[1]相等的元素
+                //flag 做标记保证只能进一次下面的while循环。
+                while (flag == 1 && j < nums2.length && nums2[j] != nums1[i]) {
+                    j++;
+                }
+                flag = 0;
+                //再找是否有比nums1[i]大的元素，找到了直接跳出循环
+                if (k < arr.length && j < nums2.length && nums2[j] > nums1[i]) {
+                    arr[k] = nums2[j];
+                    k++;
+                    break;
+                }
+            }
+            //如果遍历完整个num2数组还没有找到比num1[i]大的元素，那么就把arr[k]设置为-1.
+            if (k < arr.length && j == nums2.length) {
+                arr[k] = -1;
+                k++;
+            }
+        }
+        return arr;
+    }
