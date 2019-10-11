@@ -1,0 +1,22 @@
+ public int[] nextGreaterElements(int[] nums) {
+       int len = nums.length;
+       //创建一个数组用来存放输出元素。
+        int [] arr = new int [nums.length];
+        int k = 0;
+        int j = 0;
+      //因为原来数组是循环数组，所以在从数组中找较大的元素时只需要从其下一个元素找即可，遇到j % len与i相等即可停止。
+        for (int i = 0; i < nums.length; i++) {
+            for (j = i + 1; j % len != i; j++) {
+                if (nums[j % len] > nums[i]) {
+                    arr[k] = nums[j % len];
+                    k++;
+                    break;
+                }
+            }
+            if (j % len == i) {
+                arr[k] = -1;
+                k++;
+            }
+        }
+        return arr;
+    }
