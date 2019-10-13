@@ -1,0 +1,27 @@
+ 1.排序法
+ 
+ 
+ 
+ 2.哈希表法
+ 
+ 
+ 
+ 
+ 3.快慢指针法
+  public int findDuplicate(int[] nums) {
+        int fast = nums[0];
+        int slow = nums[0];
+        //找到快慢指针相遇位置
+      do {
+          slow = nums[slow];
+          fast = nums[nums[fast]];
+      } while (fast != slow);
+        //找到环的入口点即重复的数
+        int cur1 = nums[0];
+        int cur2 = slow;
+        while (cur1 != cur2) {
+            cur1 = nums[cur1];
+            cur2 = nums[cur2];
+        }
+        return cur1;
+    }
