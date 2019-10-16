@@ -28,3 +28,29 @@ public int countPrimes(int n) {
         }
         return count;
     }
+
+
+
+
+//暴力求解法的优化版本
+//首先排除偶数，偶数不可能为质数，然后除数也从奇数开始除，从而减少循环次数。
+ public int countPrimes(int n) {
+      if (n < 3) {
+          return 0;
+      }
+        int count = 1;
+        //除掉偶数
+        for (int i = 3; i < n; i += 2) {
+            boolean flag = true;
+            for (int j = 3; j * j <= i; j += 2) {
+                if (i % j == 0) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                count++;
+            }
+        }
+        return count;
+    }
