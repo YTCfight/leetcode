@@ -54,3 +54,23 @@ public int countPrimes(int n) {
         }
         return count;
     }
+    
+    
+    
+    //厄拉多塞筛法
+     public int countPrimes(int n) {
+        int count = 0;
+        boolean [] flag = new boolean [n]; //默认值为false
+        //从2开始，因为0， 1不是质数;下标也从2开始，因为原题是n以下的数字中，范围是0 ~ n - 1，共有n个数字，
+        //然后去掉0和1，还有 n - 2个数字，因此下标从2开始正好对应数值为2的数字
+        for (int i = 2; i < n; i++) {
+            if (flag[i] == false) {
+                count++;
+                for (int j = i + i; j < n; j += i) {
+                    //如果 j 为 i 的倍数，则把它在 falg 数组中的值设为 true
+                    flag[j] = true;
+                }
+            }
+        }
+        return count;
+    }
