@@ -1,26 +1,13 @@
 //颠倒给定的 32 位无符号整数的二进制位。
-int Fun(int input)
-{
-	int i = 0;
-	int sum = 0;
-	for (i = 31; i >= 0;i--)
-	{
-		int tmp=input%2;
-		sum +=(tmp* pow(2, i));
-		input = input >> 1;
-		if (input == 0)
-		{
-			break;
-		}
-	}
-	return sum;
-}
-int main()
-{
-	int input = 0;
-	scanf("%d", &input);
-	int ret = Fun(input);
-	printf("%d\n", ret);
-	system("pause");
-	return 0;
-}
+ public int reverseBits(int n) {
+        int result = 0;
+        for (int i = 0; i < 32; i++) {
+            //result 先左移一位用来储存下一位数字的
+            result <<= 1;
+            //result的这一位就是n的最后一位
+            result += n & 1;
+            //n 再右移1位
+            n >>= 1;
+        }
+        return result;
+    }
