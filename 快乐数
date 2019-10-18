@@ -1,0 +1,32 @@
+//由于改题的解空间是一定存在环的，所以可以用快慢指针来判断是否有环。
+//“快指针”每次走两步，“慢指针”每次走一步，最后会落在成为形成环的那个位置
+//（刚好是一个圆的时候才是 1 2 3 4 1 .. ， 若是在中间才循环就不是形成环的那个位置）
+
+ public boolean isHappy(int n) {
+        if (n <= 0) {
+            return false;
+        }
+        //双指针法
+        //快指针走两步
+        int fast = cul(n);
+        fast = cul(fast);
+        //慢指针走一步
+        int slow = cul(n);
+        //停下来的时候落在形成环的位置
+        while (slow != fast) {
+            slow = cul(slow);
+            fast = cul(fast);
+            fast = cul(fast);
+        }
+        //判断 fast 是否为1
+        return fast == 1;
+    }
+    public int cul(int num) {
+        int result = 0;
+        while (num > 0) {
+            int ret = num % 10;
+            result += (ret * ret);
+            num /= 10;
+        }
+        return result;
+    }
