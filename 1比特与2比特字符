@@ -1,0 +1,31 @@
+//我们可以对 \mathrm{bits}bits 数组从左到右扫描来判断最后一位是否为一比特字符。当扫描到第 ii 位时，如果 \mathrm{bits}[i]=1bits[i]=1，
+//那么说明这是一个两比特字符，将 ii 的值增加 2。如果 \mathrm{bits}[i]=0bits[i]=0，那么说明这是一个一比特字符，将 ii 的值增加 1。
+//如果 ii 最终落在了 \mathrm{bits}.\mathrm{length}-1bits.length−1 的位置，那么说明最后一位一定是一比特字符。
+
+//方法一：
+public boolean isOneBitCharacter(int[] bits) {
+        int i = 0;
+        while (i < bits.length - 1) {
+            i += bits[i] + 1;
+        }
+        return i == bits.length - 1;
+    }
+    
+    
+    
+//方法二：
+//三种字符分别为 0，10 和 11，那么 \mathrm{bits}bits 数组中出现的所有 0 都表示一个字符的结束位置（无论其为一比特还是两比特）。
+//因此最后一位是否为一比特字符，只和他左侧出现的连续的 1 的个数（即它与倒数第二个 0 出现的位置之间的 1 的个数，
+//如果bits 数组中只有 1 个 0，那么就是整个数组的长度减一）有关。如果 1 的个数为偶数个，
+//那么最后一位是一比特字符，如果 1 的个数为奇数个，那么最后一位不是一比特字符。
+
+ public boolean isOneBitCharacter(int[] bits) {
+       int count = 0;
+        int i = bits.length - 2;
+        while (i >= 0 && bits[i] > 0) {
+            i--;
+            count++;
+        }
+        return (count % 2) == 0;
+    }
+
