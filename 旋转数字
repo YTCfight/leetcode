@@ -1,0 +1,27 @@
+ //如果一个数字为好数，那么这个数字必须只能由0，1，2，5，6，8，9这几个数字组成，其次必须包含2，5，6，9这四个数字中的一个才行，不然所组成的数字虽然
+ //有效，但是跟原来的数字一样，并没有什么变化。
+ 
+ public int rotatedDigits(int N) {
+        int count = 0;
+        for (int i = 1; i <= N; i++) {
+            //检验数字 i 是否为好数
+            int ret = i;
+            //做标记，如果遇到 2 ，5， 6， 9 就变
+            int flag = 0;
+            while (ret > 0) {
+                int tmp = ret % 10;
+                if (tmp != 0 && tmp != 1 && tmp != 2 && tmp != 5 && tmp != 6 && tmp != 8 && tmp != 9) {
+                    //不是有效数字,直接跳出循环
+                    break;
+                } else if (tmp == 2 || tmp == 5 || tmp == 6 || tmp ==9) {
+                    flag = 1;
+                }
+                ret /= 10;
+            }
+            //当满足这两个条件时才能判定为好数
+            if (ret <= 0 && flag == 1) {
+                count++;
+            }
+        }
+        return count;
+    }
