@@ -1,0 +1,23 @@
+  public int bitwiseComplement(int N) {
+        //N 为 0 时直接返回 1；
+        if (N == 0) {
+            return 1;
+        }
+        //result 用来记录最后返回的数字；
+        int result = 0;
+        //i 用来记录移动的位置
+        int i = 0;
+        while (N != 0) {
+        //取出数字 N 的最后一位
+            int ret = (N & 1);
+            if (ret == 1) {
+                result += 0;
+            } else {
+                result += Math.pow(2,i);
+            }
+            i++;
+            //为了避免符号的干扰，直接无符号移动
+            N >>>= 1;
+        }
+        return result;
+    }
