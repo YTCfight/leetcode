@@ -1,0 +1,41 @@
+ 
+ // 暴力求解法
+ 
+ public int[] nextLargerNodes(ListNode head) {
+        //记录数组下标
+        int i = 0;
+        //求出链表的长度
+        int len = size(head);
+        int [] arr = new int [len];
+        //走在前面的引用
+        ListNode cur = head;
+        //走在后面的引用
+        ListNode prev = head;
+        while (prev != null) {
+            //当找到下一个更大节点时，数组相关下标加一，引用改变。
+            if (cur != null && cur.val > prev.val) {
+                arr[i] = cur.val;
+                i++;
+                prev = prev.next;
+                cur = prev;
+            }
+            //当没有找到下一个更大节点时，前面那个节点继续往前走。
+            if (cur != null && cur.val <= prev.val) {
+                cur = cur.next;
+            } else {   //当前面那个指针走到最后仍然没有找到下一个更大节点时，此时数组中对应的坐标改为 0 ，并改变引用的指向。
+                arr[i] = 0;
+                i++;
+                prev = prev.next;
+                cur = prev;
+            }
+        }
+        return arr;
+    }
+    //求链表长度
+    public int size(ListNode head) {
+        int count = 0;
+        for (ListNode cur = head; cur != null; cur = cur.next) {
+            count++;
+        }
+        return count;
+    }
