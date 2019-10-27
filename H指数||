@@ -1,0 +1,25 @@
+    public int hIndex(int[] citations) {
+        //二分查找
+        int left = 0;
+        int right = citations.length;
+        int count = citations.length;
+        int i = 0;
+        if (citations.length == 0) {
+            return 0;
+        }
+        if (citations[i] >= count) {
+            return count;
+        }
+        int mid = 0;
+        while (left <= right) {
+            mid = left + (right - left) / 2;
+            if (mid >= 0 && mid < citations.length && citations[mid] < count - mid) {
+                left = mid + 1;
+            } else if (mid >= 0 && mid < citations.length && citations[mid] >= count - mid && citations[mid - 1] >= count -mid + 1) {
+                right = mid - 1;
+            } else {
+                break;
+            }
+        }
+        return count - mid;
+    }
