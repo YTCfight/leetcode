@@ -1,0 +1,29 @@
+ // 方法一：用内置方法
+  public String convertToBase7(int num) {
+        return num >= 0? Integer.toUnsignedString(num,7) : "-" + Integer.toUnsignedString(num * (-1),7);
+    }
+    
+    // 方法二：
+ public String convertToBase7(int num) {
+        //0 的话特殊处理
+        if (num == 0) {
+            return "0";
+        }
+        StringBuffer sb = new StringBuffer();
+        int ret = num;
+        //若 num 为负数，则先把 num 改为正数
+        if (num < 0) {
+            ret *= (-1);
+        }
+        //字符串每次拼接余数
+        while (ret != 0) {
+            sb.append(ret % 7);
+            ret /= 7;
+        }
+        //若 num 为负数，在最后加上负号
+        if (num < 0) {
+            sb.append("-");
+        }
+        //最后返回前将字符串翻转并且转化成 String 类型即可。
+        return sb.reverse().toString();
+    }
