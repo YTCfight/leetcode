@@ -1,0 +1,43 @@
+ public List<List<Integer>> generate(int numRows) {
+         //1.第一行是固定的，就只有一个 1
+        //2.第二行也是固定的，就只有两个 1
+        //3.任意一行开头和结尾也都是 1
+        //4.第 i 行有 i 列
+        //5.第 i 行的第 j 列，这个数字是根据 i - 1 的 j 列 和 j - 1 列相加
+        if (numRows <= 0) {
+            return new ArrayList<>();
+        }
+        List<List<Integer>> result = new ArrayList<>();
+        //1.先把第一行插进去
+        List<Integer> firstLine = new ArrayList<>();
+        firstLine.add(1);
+        result.add(firstLine);
+        if (numRows == 1) {
+            return result;
+        }
+        //2.再把第二行插入进去
+        List<Integer> secondLine = new ArrayList<>();
+        secondLine.add(1);
+        secondLine.add(1);
+        result.add(secondLine);
+        if (numRows == 2) {
+            return result;
+        }
+        //3.处理后续 i 行的情况
+        for (int row = 3; row <= numRows; row++) {
+            List<Integer> prevLine = result.get(row - 1 - 1);
+            //创建一个表示当前行的 List
+            List<Integer> curLine = new ArrayList<>();
+            //把当前行中填充一些元素
+            //当前行的第 0 列一定是 1 
+            curLine.add(1);
+            //后续的列是根据 prevLine 得到的
+            for (int col = 1; col < row - 1; col++) {
+                curLine.add(prevLine.get(col - 1) + prevLine.get(col));
+            }
+            //加上最后一个 1
+            curLine.add(1);
+            result.add(curLine);
+        }
+        return result;
+    }
