@@ -1,0 +1,16 @@
+  public String defangIPaddr(String address) {
+        // 因为 StringBuilder 是可以修改的，所以此处不用 Sting。
+       StringBuilder sb = new StringBuilder("");
+        for (int i = 0; i < address.length(); i++) {
+            //取出当前的字符
+            char ret = address.charAt(i);
+            //遇到 “.” 就进行替换
+            if (ret == '.') {
+                sb.append("[.]");
+                continue;
+            }
+            //不是“.” 就添加进 StringBuilder
+            sb.append(ret);
+        }
+        return sb.toString();
+    }
