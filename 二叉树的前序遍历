@@ -1,0 +1,21 @@
+// 方法一：
+class Solution {
+    static List<Integer> list = new ArrayList<>();
+    //因为 list 是静态的，所以在下一次使用前要把 list 清空。
+    {
+        list.clear();
+    }
+    public List<Integer> preorderTraversal(TreeNode root) {
+        //当 root 为空时，直接返回。
+        if (root == null) {
+            return new ArrayList<>();
+        }
+        int ret = root.val;
+        list.add(ret);
+        preorderTraversal(root.left);
+        preorderTraversal(root.right);
+        return list;
+    }
+}
+
+//方法二：
