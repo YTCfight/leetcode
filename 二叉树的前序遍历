@@ -19,3 +19,18 @@ class Solution {
 }
 
 //方法二：
+
+public class BinaryTree {
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
+        //访问根节点。此处访问就是把元素插入到集合
+        result.add(root.val);
+        //递归遍历左子树
+        result.addAll(preorderTraversal(root.left));
+        //递归遍历右子树
+        result.addAll(preorderTraversal(root.right));
+        return result;
+    }
