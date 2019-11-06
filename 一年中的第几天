@@ -1,0 +1,73 @@
+ public int dayOfYear(String date) {
+        //先把字符串拆分
+        String [] arr = date.split("-");
+        //再看是什么年
+        int num1 = Integer.valueOf(arr[0]);
+        int num2 = Integer.valueOf(arr[1]);
+        int num3 = Integer.valueOf(arr[2]);
+        int result = 0;
+        if (num1 % 4 == 0 && num1 % 100 != 0 || num1 % 400 == 0) {
+            //闰年
+            for (int i = 1; i < num2; i++) {
+                result += 30;
+            }
+             if (num2 == 2) {
+                result += 1;
+            } if (num2 == 3) {
+                result += 0;
+            } if (num2 == 4) {
+                result += 1;
+            } if (num2 == 5) {
+                result += 1;
+            } if (num2 == 6) {
+                result += 2;
+            } if (num2 == 7) {
+                result += 2;
+            } if (num2 == 8) {
+                result += 3;
+            } if (num2 == 9) {
+                result += 4;
+            }
+             if (num2 == 10) {
+                result += 4;
+            }
+             if (num2 == 11) {
+                result += 5;
+            }
+             if (num2 == 12) {
+                result += 5;
+            }
+        } else {
+            //平年
+            for (int i = 1; i < num2; i++) {
+                result += 30;
+            }
+            if (num2 == 2) {
+                result += 1;
+            }   
+            if (num2 == 3) {
+                result += (-1);
+            } if (num2 == 4) {
+                result += 0;
+            } if (num2 == 5) {
+                result += 0;
+            } if (num2 == 6) {
+                result += 1;
+            } if (num2 == 7) {
+                result += 1;
+            } if (num2 == 8) {
+                result += 2;
+            } if (num2 == 9) {
+                result += 3;
+            } if (num2 == 10) {
+                result += 3;
+            }
+             if (num2 == 11) {
+                result += 4;
+            } if (num2 == 12) {
+                result += 4;
+            }
+        }
+        result += num3;
+        return result;
+    }
