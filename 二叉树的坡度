@@ -1,0 +1,21 @@
+class Solution {
+     private int sum = 0;
+
+    public int findTilt(TreeNode root) {
+        getSum(root);
+        return sum;
+    }
+
+    public int getSum(TreeNode root) {
+       if (root == null) {
+           return 0;
+       }
+        int left = getSum(root.left);
+        int right = getSum(root.right);
+        //返回的是 sum 
+        sum += Math.abs(left - right);
+        //下面这个只是辅助得到最终结果的。
+        return root.val + left + right;
+    }
+
+}
