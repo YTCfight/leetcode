@@ -1,0 +1,29 @@
+public List<Integer> rightSideView(TreeNode root) {
+        //对二叉树进行层序遍历，将每一层的最后一个元素放进去即可。
+       List<Integer> res = new ArrayList<>();
+        if(root == null) {
+            return res;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            //每一层中节点的数量。
+            int cnt = queue.size();
+            while (cnt>0) {
+                TreeNode node = queue.poll();
+                cnt--;
+                if(node.left != null) {
+                     queue.offer(node.left);
+                }
+                if(node.right != null) {
+                    queue.offer(node.right);
+                }
+                //添加每一层中最后一个节点。
+                if(cnt == 0) {
+                    res.add(node.val);
+                }
+            }
+        }
+        
+        return res;
+    }
