@@ -1,0 +1,32 @@
+ public List<Double> averageOfLevels(TreeNode root) {
+        //用层序遍历
+        List<Double> list = new LinkedList<>();
+        if (root == null) {
+            return list;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        //每一层节点数值的和
+        double sum = 0;
+        while (!queue.isEmpty()) {
+            //每一层的数量.
+            int cnt = queue.size();
+            int count = cnt;
+            //累加每一层节点的数值
+            while (cnt-- > 0) {
+                TreeNode cur = queue.poll();
+                sum += cur.val;
+                if (cur.left != null) {
+                    queue.offer(cur.left);
+                }
+                if (cur.right != null) {
+                    queue.offer(cur.right);
+                }
+            }
+            //求出每一层节点的平均值，并放进集合中
+            double ave = sum / count;
+            list.add(ave);
+            sum = 0;
+        }
+        return list;
+    }
