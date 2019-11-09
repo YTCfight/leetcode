@@ -1,0 +1,30 @@
+public boolean flipEquiv(TreeNode root1, TreeNode root2) {
+        // 翻转等价 => 当前结点的值相等 + 左子树翻转后相等 + 右子树翻转后相等
+        //先序遍历
+        //1.当两个结点都是空时
+       if (root1 == null && root2 == null) {
+           return true;
+       }
+        //2.当一个为空，一个不为空时
+        if (root1 == null || root2 == null) {
+            return false;
+        }
+        //3.当两个结点的值不相等时，直接返回 false
+        if (root1.val != root2.val) {
+            return false;
+        }
+        //a) 当两个结点的值相等并且两个结点都不为空且不相等时，进行交换。
+        if (root1.left != null && root2.left != null && root1.left.val != root2.left.val) {
+            TreeNode tmp = root2.left;
+            root2.left = root2.right;
+            root2.right = tmp;
+        }
+        //b) 当两个结点的值相等并且有一个节点为空时，进行交换。
+        if ((root1.left != null && root2.left == null) || (root1.left == null && root2.left != null)) {
+            TreeNode tmp = root2.left;
+            root2.left = root2.right;
+            root2.right = tmp;
+        }
+        //递归判定左子树 + 递归判定右子树
+        return flipEquiv(root1.left, root2.left) && flipEquiv(root1.right, root2.right);
+    }
