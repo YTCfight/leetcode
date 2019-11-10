@@ -1,0 +1,32 @@
+  int sum = 0;
+    public int countNodes(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        if (root.left == null && root.right == null) {
+            return 1;
+        }
+        boolean flag = false;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            root = queue.poll();
+            if (!flag) {
+                if (root.left != null && root.right != null) {
+                    queue.offer(root.left);
+                    queue.offer(root.right);
+                    sum++;
+                } else if (root.left != null && root.right == null) {
+                    sum++;
+                    queue.offer(root.left);
+                    flag = true;
+                } else {
+                    sum++;
+                    flag = true;
+                }
+            } else {
+                sum++;
+            }
+        }
+        return sum;
+    }
