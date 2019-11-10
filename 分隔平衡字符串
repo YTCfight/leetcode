@@ -1,0 +1,40 @@
+    //记录平衡字符串的数量。
+    int sum = 0;
+    public int balancedStringSplit(String s) {
+        if (s.length() == 0) {
+            return 0;
+        }
+        char[] arr = s.toCharArray();
+        Stack<Character> stack = new Stack<>();
+        int flag = 0; //记录栈中元素的和（如果当前元素和栈中最底层元素相同就加一，否则就减一）
+        int count = 0; //记录此时栈中的数量
+        char ret = ' ';
+        for (int i = 0; i < arr.length; i++) {
+            //当栈为空时，直接将元素添加到栈中
+            if (stack.isEmpty()) {
+                stack.push(arr[i]);
+                ret = arr[i];
+                flag++;
+                count++;
+                continue;
+            }
+            //比较当前元素与栈中最底层元素是否相同，相同加一，相异减一
+            if (!stack.isEmpty() && arr[i] == ret) {
+                flag++;
+                count++;
+            } else {
+                flag--;
+                count++;
+            }
+            stack.push(arr[i]);
+            //如果栈中元素的和为 0 时，就进行出栈操作，直到栈为空，并且 sum++。
+            if (flag == 0) {
+                for (int j = 0; j < count; j++) {
+                    stack.pop();
+                }
+                sum++;
+                count = 0;
+            }
+        }
+        return sum;
+    }
