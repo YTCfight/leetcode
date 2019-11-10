@@ -1,0 +1,26 @@
+  public boolean isCompleteTree(TreeNode root) {
+        boolean flag = false;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            root = queue.poll();
+            if (!flag) {
+                if (root.left != null && root.right != null) {
+                    queue.offer(root.left);
+                    queue.offer(root.right);
+                } else if (root.left == null && root.right != null) {
+                    return false;
+                } else if (root.left != null && root.right == null) {
+                    queue.offer(root.left);
+                    flag = true;
+                } else {
+                    flag = true;
+                }
+            } else {
+                if (root.left != null || root.right != null) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
