@@ -1,0 +1,57 @@
+ 方法一： 递归
+ 
+ List<List<Integer>> result = new ArrayList<>();
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        if (root == null) {
+            return result;
+        }
+        //此处二叉树的层数从 0 开始计算，为了方便和下标对应
+        helper(root, 0);
+        return result;
+    }
+
+    //辅助完成递归遍历的过程
+    private void helper(TreeNode root, int level) {
+        if (level == result.size()) {
+            //达到的第 level 层还没有对应的数组， 此时就需要创建一个新的数组加入到 result 中。
+            result.add(new ArrayList<>());
+        }
+        result.get(level).add(root.val);
+        if (root.left != null) {
+            helper(root.left, level + 1);
+        }
+        if (root.right != null) {
+            helper(root.right, level + 1);
+        }
+    }
+    
+    
+    
+ 方法二：非递归（使用层序遍历）
+ 
+  List<List<Integer>> result = new LinkedList<>();
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        if (root == null) {
+            return result;
+        }
+        //用层序遍历
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            //每层中元素的数量
+            List<Integer> list = new LinkedList<>();
+            int cnt = queue.size();
+            while (cnt-- > 0) {
+                TreeNode ret = queue.poll();
+                list.add(ret.val);
+            if (ret.left != null) {
+                queue.offer(ret.left);
+            }
+            if (ret.right != null) {
+                queue.offer(ret.right);
+                }
+            }
+            result.add(list);
+        }
+        return result;
+    }
