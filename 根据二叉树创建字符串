@@ -1,0 +1,31 @@
+ //根据二叉树创建字符串
+    //用来保存最终的字符串结果
+    private static StringBuilder stringBuilder = new StringBuilder();
+    public static String tree2str(TreeNode t) {
+        if (t == null) {
+            return "";
+        }
+        tree2strHelper(t);
+        stringBuilder.deleteCharAt(0);
+        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        return stringBuilder.toString();
+    }
+    private static void tree2strHelper(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        //借助这个方法来完成递归的过程
+        //按照先序遍历的方式来递归
+        stringBuilder.append("(");
+        //访问当前节点
+        stringBuilder.append(root.val);
+        //访问左子树
+        tree2strHelper(root.left);
+        //如果左子树为空， 并且右子树非空，需要（）占位
+        if (root.left == null && root.right != null) {
+            stringBuilder.append("()");
+        }
+        //访问右子树
+        tree2strHelper(root.right);
+        stringBuilder.append(")");
+    }
