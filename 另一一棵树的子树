@@ -1,0 +1,46 @@
+//另一棵树的子树
+    public boolean isSubtree(TreeNode s, TreeNode t) {
+        //比较 s 是否包含 t => s 和 t 是不是相等 + s.left 是不是包含 t + s.right 是不是包含 t
+        //1.如果两棵树都是空树，直接返回 true
+        if (s == null && t == null) {
+            return true;
+        }
+        //2.一棵树空，一棵树不空，暂且返回 false
+        if (s == null || t == null) {
+            return false;
+        }
+        //3.如果两棵树都是非空
+        // a) 比较根节点的值是不是相等，如果相等的话，比较一下 s 和 t 是不是相同的树
+        boolean ret = false;
+        if (s.val == t.val) {
+            ret = isSameTree(s,t);
+        }
+        // b) 递归的判定一下， t 是否被 s 的左子树包含，
+        if (!ret) {
+            ret = isSubtree(s.left, t);
+        }
+        // c) 递归的判定一下， t 是否被 s 的右子树包含
+        if (!ret) {
+            ret = isSubtree(s.right, t);
+        }
+        return ret;
+    }
+ private boolean isSameTree(TreeNode p, TreeNode q) {
+        //判定两棵树是否相同 => 比较根节点是否相同 + 比较左子树是否相同 + 比较右子树是否相同
+        //1.如果两个树都是空树，直接返回 true
+        if (p == null && q == null) {
+            return true;
+        }
+        //2.如果一棵空树，一棵不空树返回 false
+        if (p == null || q == null) {
+            return false;
+        }
+        //3.如果都不空
+        // a)比较一下根节点是否相同，如果不相同，就直接返回 false
+        if (p.val != q.val) {
+            return false;
+        }
+        // b)递归比较左子树和递归比较右子树看看是不是也相同
+        return isSameTree(p.left, q.left)
+                && isSameTree(p.right,q.right);
+    }
