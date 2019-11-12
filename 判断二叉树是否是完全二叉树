@@ -1,0 +1,40 @@
+//判断是否是完全二叉树
+    public boolean isComplete(TreeNode root) {
+        //1.先对树进行层序遍历
+        //如果这个标记为 false， 说明还是处在第一阶段
+        //如果这个标记为 true ，接下来的节点就不能有子树
+        //也就开始第二阶段了
+        boolean needNoChild = false;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            TreeNode cur = queue.poll();
+            //对元素进行判断
+            if (!needNoChild) {
+                //第一阶段
+                if (cur.left != null && cur.right != null) {
+                    //合格状态，继续往下遍历
+                    //就把左右子树加入队列就行了
+                    queue.offer(cur.left);
+                    queue.offer(cur.right);
+                } else if (cur.left == null && cur.right != null) {
+                    //这种情况不是完全二叉树
+                    return false;
+                } else if (cur.left != null && cur.right == null) {
+                    //临界状态，开启第二阶段
+                    queue.offer(cur.left);
+                    needNoChild = true;
+                } else {
+                    //左右子树都为空,开启第二阶段
+                    needNoChild = true;
+                }
+            } else {
+                //第二阶段
+                //第二阶段要求节点必须没有子树，只要子树存在，就不为完全二叉树
+                if (cur.left != null || cur.right != null) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
