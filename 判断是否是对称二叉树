@@ -1,0 +1,26 @@
+//判断对称二叉树
+    public boolean isSymmetry(TreeNode root) {
+        //把判断对称转换成 左右子树是否是镜像关系
+        //1. root 是空树
+        if (root == null) {
+            return true;
+        }
+        return isMirror(root.left, root.right);
+    }
+    private boolean isMirror(TreeNode t1, TreeNode t2) {
+        //1.如果两棵树都是空树，算镜像
+        if (t1 == null && t2 == null) {
+            return true;
+        }
+        //2.如果两棵树一个空，一个非空，不算镜像
+        if (t1 == null || t2 == null) {
+            return false;
+        }
+        //3.如果两棵树都不为空
+        // a) 比较根节点是不是相同,不相同就不是镜像
+        if (t1.val != t2.val) {
+            return false;
+        }
+        // b) 递归比较子树， t1.left 和 t2.right, t1.right he t2.left 是不是镜像
+        return isMirror(t1.left, t2.right) && isMirror(t1.right, t2.left);
+    }
