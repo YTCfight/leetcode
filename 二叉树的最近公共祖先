@@ -1,0 +1,29 @@
+ //最近公共祖先：从最近公共祖先开始去找两个节点，一定都能找到，但是这两个节点一定不在同一个子树中。
+    private static TreeNode lca = null; //保存最终的公共祖先节点
+    public static TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        //1.借助一个辅助函数，在 root 中递归查找 p 和 q。设定辅助函数的返回值，如果找到返回 1（找到一个或者两个都算 1），没找到返回 0.
+        //2.递归查找的过程进一步拆解：递归在左子树中查找 + 递归在右子树中查找 + 对比根节点
+        //3.如果这三个位置中，有两个地方找到了，说明这个当前节点就是要查找的最近公共祖先
+        if (root == null) {
+            return null;
+        }
+        //辅助函数
+        findNode(root, p, q);
+        return lca;
+    }
+    private static boolean findNode(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null) {
+            return false;
+        }
+        //对比一下当前节点有没有找到
+        int mid = (root == p || root == q) ? 1 : 0;
+        //递归在左子树中尝试找 p 或者 q
+        int left = findNode(root.left, p, q) ? 1 : 0;
+        //递归在右子树中尝试找 p 或者 q
+        int right = findNode(root.right, p, q) ? 1 : 0;
+        if (left + right + mid >= 2) {
+            //找到 lca，就是当前的 root
+            lca = root;
+        }
+        return (left + right + mid) > 0;
+    }
