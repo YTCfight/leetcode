@@ -1,0 +1,54 @@
+
+import java.util.Scanner;
+
+class TreeNode {
+    public char val;
+    public TreeNode left;
+    public TreeNode right;
+
+    public TreeNode(char val) {
+        this.val = val;
+    }
+}
+public class TreeBuildDemo {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        while (scanner.hasNext()) {
+            //line 就是一组先序遍历的结果（带 # ）；
+            String line = scanner.next();
+            TreeNode root = buildTree(line);
+            inOrder(root);
+            System.out.println();
+        }
+    }
+    private static int index = 0;
+    private static TreeNode buildTree(String line) {
+        //记录当前递归过程中访问到字符串中的第几个字符了。
+        //每次开始新的字符串之前要先把 index 置位 0
+        index = 0;
+        return createTreePreOrder(line);
+    }
+
+    //这个函数来完成递归
+    private static TreeNode createTreePreOrder(String line) {
+        char c = line.charAt(index);
+        if (c == '#') {
+            return null;
+        }
+        TreeNode root = new TreeNode(c);
+        index++;
+        root.left = createTreePreOrder(line);
+        index++;
+        root.right = createTreePreOrder(line);
+        return root;
+    }
+
+    private static void inOrder(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        inOrder(root.left);
+        System.out.print(root.val + " ");
+        inOrder(root.right);
+    }
+}
