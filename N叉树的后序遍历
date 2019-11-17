@@ -1,0 +1,11 @@
+ public List<Integer> postorder(Node root) {
+        List<Integer> result = new LinkedList<>();
+        if (root == null) {
+            return result;
+        }
+        for (Node node : root.children) {
+            result.addAll(postorder(node));
+        }
+        result.add(root.val);
+        return result;
+    }
