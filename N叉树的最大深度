@@ -1,8 +1,10 @@
+  N叉树的最大深度 => 1 + 子树的最大深度。
   public int maxDepth(Node root) {
         if (root == null) {
             return 0;
         }
         int max = 0;
+        //下面的循环就是求出子树中的最大深度。
         for (Node node : root.children) {
             int depth = maxDepth(node);
             max = Math.max(max, depth);
