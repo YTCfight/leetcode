@@ -1,0 +1,23 @@
+ private TreeNode ret = null;
+    public TreeNode searchBST(TreeNode root, int val) {
+        if (root == null) {
+            return null;
+        }
+        return fun(root, val);
+    }
+    private TreeNode fun(TreeNode root, int val) {
+        if (root == null) {
+            return null;
+        }
+        if (root.val == val) {
+            ret = root;
+            return ret;
+        }
+        if (root.val > val) {
+            searchBST(root.left, val);
+        }
+        if (root.val < val) {
+            searchBST(root.right, val);
+        }
+        return ret;
+    }
