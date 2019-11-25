@@ -1,0 +1,37 @@
+//方法一：哈希表
+ public int repeatedNTimes(int[] A) {
+       Map<Integer, Integer> map = new HashMap<>();
+       for (int x : A) {
+           int count = map.getOrDefault(x , 0);
+           map.put(x, count + 1);
+       }
+       for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+           if (entry.getValue() == A.length / 2) {
+               return entry.getKey();
+           }
+       }
+       return -1;
+    }
+    
+    
+    
+ //方法二
+ public int repeatedNTimes(int[] A) {
+        //先对数组排序。方便后面的操作.
+        //分为三种情况：
+        //（1） 1，1，2，3
+        //（2） 1，2，3，3
+        //（3） 1，2，2，2，3，4
+        Arrays.sort(A);
+        int len = A.length;
+        if (A[len / 2] == A[(len / 2) - 1]) {
+            //处理情况三
+            return A[len / 2];
+        } else if (A[len / 2] != A[(len / 2) - 1] && A[len / 2] == A[(len / 2) + 1]) {
+            //处理情况二
+            return A[len / 2];
+        } else {
+            //处理情况一
+            return A[(len / 2) - 1];
+        }
+    }
