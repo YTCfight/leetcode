@@ -1,0 +1,28 @@
+//复制带随机指针的链表
+    static class Node {
+        public int val;
+        public Node next;
+        public Node random;
+
+        public Node() {}
+
+        public Node(int _val,Node _next,Node _random) {
+            val = _val;
+            next = _next;
+            random = _random;
+        }
+    }
+    public Node copyRandomList(Node head) {
+        //1.先创建一个 HashMap ， key 是旧的节点， value 是旧的节点对应的新的节点
+        HashMap<Node, Node> hashMap = new HashMap<>();
+        for (Node cur = head; cur != null; cur = cur.next) {
+            //2.把旧链表的节点依次以键值对的形式插入进来
+            hashMap.put(cur, new Node(cur.val, null, null));
+        }
+        //再次遍历旧的链表，根据刚才得到的 hashMap 就能方便的把 next 和 random 都指到正确的位置上
+        for (Node cur = head; cur != null; cur = cur.next) {
+            hashMap.get(cur).next = hashMap.get(cur.next);
+            hashMap.get(cur).random = hashMap.get(cur.random);
+        }
+        return hashMap.get(head);
+    }
