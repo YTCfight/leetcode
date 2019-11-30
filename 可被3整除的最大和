@@ -1,0 +1,37 @@
+ public int maxSumDivThree(int[] nums) {
+        List<Integer> one = new LinkedList<>();
+        List<Integer> two = new LinkedList<>();
+        int sum = 0;
+        int ret = 0;
+        for (int x : nums) {
+            if (x % 3 == 1) {
+                one.add(x);
+            }
+            if (x % 3 == 2) {
+                two.add(x);
+            }
+            sum += x;
+        }
+        Collections.sort(one);
+        Collections.sort(two);
+        if (sum % 3 == 0) {
+            return sum;
+        }
+        //剔除一个mod3 == 1 或者两个 mod3 == 2的数
+        if (sum % 3 == 1) {
+            if (one.size() >= 1) {
+                ret = Math.max(ret, sum - one.get(0));
+            }
+            if (two.size() >= 2) {
+                ret = Math.max(ret, sum - two.get(0) - two.get(1));
+            }
+        } else if (sum % 3 == 2) { // 剔除一个 mod3 == 2 或者两个 mod3 == 1 的数
+            if (one.size() >= 2) {
+                ret = Math.max(ret, sum - one.get(0) - one.get(1));
+            }
+            if (two.size() >= 1) {
+                ret = Math.max(ret, sum - two.get(0));
+            }
+        }
+        return ret;
+    }
