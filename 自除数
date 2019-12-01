@@ -1,0 +1,24 @@
+ public List<Integer> selfDividingNumbers(int left, int right) {
+        List<Integer> result = new LinkedList<>();
+        for (int i = left; i <= right; i++) {
+            //排除 left 从 0 开始的情况
+            if (left == 0) {
+                continue;
+            }
+            int num = i; // 被除数
+            int ret = num % 10; // 除数
+            while (num > 0) {
+                if (ret != 0 && i % ret == 0) {
+                    num /= 10;
+                    ret = num % 10;
+                    continue;
+                } else {
+                    break;
+                }
+            }
+            if (num == 0) {
+                result.add(i);
+            }
+        }
+        return result;
+    }
