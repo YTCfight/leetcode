@@ -1,0 +1,25 @@
+ public int numSubarrayBoundedMax(int[] A, int L, int R) {
+        int count = 0;               
+        for(int i = 0;i < A.length; i++){
+            //如果当前子数组的第一个元素大于 R，直接接受本次循环
+            if(A[i] > R){
+                continue;
+            }
+            boolean flag = false;    
+            for(int j = i;j < A.length; j++) {
+                //如果子数组中有一个元素大于 R，直接跳出循环   
+                if(A[j] > R){
+                    break;
+                }    
+                //当子数组中有一个元素大于 L 时，开启计数模式。            
+                if(A[j] >= L) {
+                    flag = true;
+                }
+                //计数
+                if(flag) {
+                    count++;
+                }                
+            }
+        }
+        return count;
+    }
