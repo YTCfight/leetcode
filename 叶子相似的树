@@ -1,0 +1,28 @@
+ public boolean leafSimilar(TreeNode root1, TreeNode root2) {
+        List<TreeNode> l1 = fun(root1);
+        List<TreeNode> l2 = fun(root2);
+        //比较两棵树的叶子节点
+        if (l1.size() == l2.size()) {
+            for (int i = 0; i < l1.size(); i++) {
+                if (l1.get(i).val != l2.get(i).val) {
+                    return false;
+                }
+            }
+        } else {
+            return false;
+        }
+        return true;
+    }
+    //前序遍历找出叶子节点
+    private List<TreeNode> fun(TreeNode root) {
+        List<TreeNode> result = new LinkedList<>();
+        if (root == null) {
+            return result;
+        }
+        if (root.left == null && root.right == null) {
+            result.add(root);
+        }
+        result.addAll(fun(root.left));
+        result.addAll(fun(root.right));
+        return result;
+    }
