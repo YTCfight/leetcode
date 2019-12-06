@@ -1,0 +1,86 @@
+ public String largestTimeFromDigits(int[] A) {
+        StringBuilder sb = new StringBuilder();
+        //先对数字升序排序，方便后序的操作。
+        Arrays.sort(A);
+        if (A[0] > 2) {
+            return "";
+        }
+        //确定第一个数字
+        boolean flag = false; // 用来判断数字是否添加成功。
+        int count = 0;        //专门用来判断 当第一个数字是 2 时，后面数字能否符合题意。
+        for (int i = A.length - 1; i >= 0; i--) {
+            //记录超过 6 的数字，当第一位是 2 ，并且数组中有两位 大于等于 6 时，
+            // 此时不能选择 2 作为第一位。例如：0，2，6，6.该情况下不能选择 2 作为第一个数字。
+            if (A[i] >= 6) {
+                count++;
+            }
+            if (A[i] <= 2) {
+                //下面这种情况就是上面描述的不合题意的情况。
+                if (A[i] == 2 && count >= 2) {
+                    continue;
+                }
+                sb.append(A[i]);
+                //当添加完一位时，就把该位数字在数组中置位 -1，以便区分是否已经使用过该数字了。
+                A[i] = -1;
+                flag = true;
+                break;
+            }
+        }
+        //如果添加成功将 flag 置位 false；否则返回 ""；
+        if (flag == false) {
+            return "";
+        } else {
+            flag = false;
+        }
+        //确定第二个数字:当第一位是 2 时，那么第二位 必须小于等于 3；
+        //如果第一位是 0 或者 1，那么第二位是什么数字就无所谓了。
+        for (int i = A.length - 1; i >= 0; i--) {
+            //当第一位数字是 2 时。
+            if (sb.charAt(0) == '2' && A[i] <= 3 && A[i] != -1) {
+                sb.append(A[i]);
+                A[i] = -1;
+                flag = true;
+                break;
+            } else if (sb.charAt(0) == '1' && A[i] != -1) {
+                //当第一位数字是 1 时。
+                sb.append(A[i]);
+                A[i] = -1;
+                flag = true;
+                break;
+            } else if (sb.charAt(0) == '0' && A[i] != -1) {
+                //当第一位数字是 0 时。
+                sb.append(A[i]);
+                A[i] = -1;
+                flag = true;
+                break;
+            }
+        }
+        if (flag == false) {
+            return "";
+        } else {
+            flag = false;
+            sb.append(":");
+        }
+        //确定第三个数字：第三位数字要求是小于等于 5.
+        for (int i = A.length - 1; i >= 0; i--) {
+            if (A[i] <= 5 && A[i] != -1) {
+                sb.append(A[i]);
+                A[i] = -1;
+                flag = true;
+                break;
+            }
+        }
+        if (flag == false) {
+            return "";
+        } else {
+            flag = false;
+        }
+        //确定第四个数字：第四位数字没有任何要求。
+        for (int i = 0; i < A.length; i++) {
+            if (A[i] != -1) {
+                sb.append(A[i]);
+                break;
+            }
+        }
+        return sb.toString();
+    }
