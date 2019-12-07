@@ -1,0 +1,26 @@
+ public String reverseOnlyLetters(String S) {
+        char[] array = S.toCharArray();
+        int left = 0;
+        int right = array.length - 1;
+        while (left < right) {
+           while (left < right && (array[left] < 'A' || array[left] > 'z'
+                   || (array[left] > 'Z' && array[left] < 'a'))) {
+                left++;
+            }
+            while (left < right && (array[right] < 'A' || array[right] > 'z'
+                    || (array[right] > 'Z' && array[right] < 'a'))) {
+                right--;
+            }
+            if (left < right) {
+                swap(array, left, right);
+                left++;
+                right--;
+            }
+        }
+        return new String(array);
+    }
+    private void swap(char[] array, int left, int right) {
+        char tmp = array[left];
+        array[left] = array[right];
+        array[right] = tmp;
+    }
