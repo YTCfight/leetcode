@@ -1,23 +1,30 @@
 //数组形式的整数加法
-int Fun(int arr[], int len)
-{
-	int sum = 0;
-	int j = 0;
-	for (int i = len - 1; i >= 0; i--)
-	{
-		sum +=( arr[j] * pow(10, i));
-		j++;
-	}
-	return sum;
-}
-int main()
-{
-	int arr[] = { 1, 2, 0, 0 };
-	int len = sizeof(arr) / sizeof(arr[0]);
-	int ret = Fun(arr, len);
-	int input = 0;
-	scanf("%d", &input);
-	printf("%d\n", ret+input);
-	system("pause");
-	return 0;
-}
+思路：
+/*123+912123+912，我们把它表示成 [1, 2, 3+912][1,2,3+912]。然后，我们计算 3+912 = 9153+912=915。
+  5 留在当前这一位，将 910/10=91910/10=91 以进位的形式加入下一位。然后，我们再重复这个过程，计算 [1, 2+91, 5][1,2+91,5]。
+  我们得到 9393，33 留在当前位，将 90/10=990/10=9 以进位的形式加入下一位。继而又得到 [1+9, 3, 5][1+9,3,5]，
+  重复这个过程之后，最终得到结果 [1, 0, 3, 5].*/
+public List<Integer> addToArrayForm(int[] A, int K) {
+        List<Integer> result = new ArrayList<>();
+        for (int i = A.length - 1; i >= 0; i--) {
+            int num = A[i] + K;
+            A[i] = num % 10;
+            K = (num - A[i]) / 10;
+        }
+        //K 表示相加完之后多出 A 数组位数的数字
+        //例如 A = {0} K = 10000，
+        //那么经过上面的循环之后 K = 1000.
+        //下面这个循环就是解决 K 的。
+        if (K > 0) {
+            while (K > 0) {
+                int n = K % 10;
+                result.add(0,n);
+                K /= 10;
+            }
+        }
+        //然后再把 A 数组中的数字加入到 result 集合中。
+        for (int i = 0; i < A.length; i++) {
+            result.add(A[i]);
+        }
+        return result;
+    }
