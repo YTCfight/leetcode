@@ -8,5 +8,5 @@
             }
             count--;
         }
-        return count;
+        return count
     }
