@@ -57,3 +57,24 @@ int main()
 	system("pause");
 	return 0;
 }
+
+
+
+//Java版本
+ public List<Boolean> prefixesDivBy5(int[] A) {
+        List<Boolean> result = new LinkedList<>();
+        //记录最后一位
+        int tail = 0;
+        for (int x : A) {
+            //当前位的和
+            tail = tail * 2 + x;
+            //当前位的尾数
+            tail = tail > 9 ? tail - 10 : tail;
+            if (tail == 0 || tail == 5) {
+                result.add(true);
+            } else {
+                result.add(false);
+            }
+        }
+        return result;
+    }
