@@ -1,0 +1,42 @@
+ public int maxNumberOfBalloons(String text) {
+        Map<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+            int count = map.getOrDefault(c, 0);
+            map.put(c, count + 1);
+        }
+        int count = 0;
+        for (Map.Entry<Character, Integer> entry : map.entrySet()) {
+            if (entry.getKey() == 'a') {
+                if (entry.getValue() == 0) {
+                    return 0;
+                }
+                count = entry.getValue();
+            }
+            if (entry.getKey() == 'b' && entry.getValue() < count) {
+                if (entry.getValue() == 0) {
+                    return 0;
+                }
+                count = entry.getValue();
+            }
+            if (entry.getKey() == 'n' && entry.getValue() < count) {
+                if (entry.getValue() == 0) {
+                    return 0;
+                }
+                count = entry.getValue();
+            }
+            if (entry.getKey() == 'l' && entry.getValue() < count * 2) {
+                if (entry.getValue() < 2) {
+                    return 0;
+                }
+                count = entry.getValue() / 2;
+            }
+            if (entry.getKey() == 'o' && entry.getValue() < count * 2) {
+                if (entry.getValue() < 2) {
+                    return 0;
+                }
+                count = entry.getValue() / 2;
+            }
+        }
+        return count;
+    }
