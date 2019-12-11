@@ -1,0 +1,27 @@
+ public List<List<Integer>> minimumAbsDifference(int[] arr) {
+        List<List<Integer>> result = new LinkedList<>();
+        Arrays.sort(arr);
+        //最小绝对差
+        int mad = Integer.MAX_VALUE;
+        for (int i = 0; i < arr.length - 1; i++) {
+           int j = i + 1;
+           //两个数字最差
+           int sub = arr[j] - arr[i];
+           //当两个数的差小于 mad 时就更新 mad 的值
+           if (sub < mad) {
+               mad = sub;
+           }
+        }
+        //再次遍历数组，取出两个数字差是 mad 的两个数
+        for (int i = 0; i < arr.length - 1; i++) {
+            int j = i + 1;
+            int sub = arr[j] - arr[i];
+            if (sub == mad) {
+                List<Integer> list = new LinkedList<>();
+                list.add(arr[i]);
+                list.add(arr[j]);
+                result.add(list);
+            }
+        }
+        return result;
+    }
