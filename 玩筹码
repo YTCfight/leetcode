@@ -1,0 +1,13 @@
+public int minCostToMoveChips(int[] chips) {
+        //遍历数组看看奇数跟偶数的个数
+        int oddNumberCount = 0;
+        int evenNumberCount = 0;
+        for (int x : chips) {
+            if (x % 2 == 0) {
+                evenNumberCount++;
+            } else {
+                oddNumberCount++;
+            }
+        }
+        return Math.min(evenNumberCount, oddNumberCount);
+    }
