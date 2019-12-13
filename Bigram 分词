@@ -1,0 +1,17 @@
+ public String[] findOcurrences(String text, String first, String second) {
+        List<String> result = new ArrayList<>();
+        //先把 text 按照空格拆分
+        String [] str = text.split(" ");
+        //按照每个字符串比较，如果符合题意就放进集合。
+        for (int i = 0; i < str.length - 2; i++) {
+            if (str[i].equals(first) && str[i + 1].equals(second)) {
+                result.add(str[i + 2]);
+            }
+        }
+        //最后将集合内容放进 String 数组中。
+        String[] ret = new String[result.size()];
+        for (int i = 0; i < result.size(); i++) {
+            ret[i] = result.get(i);
+        }
+        return ret;
+    }
