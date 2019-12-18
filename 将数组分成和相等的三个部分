@@ -1,0 +1,29 @@
+ public boolean canThreePartsEqualSum(int[] A) {
+        int sum = 0;
+        //先把数组累加，如果数组的和不能被3整除，直接返回 false
+        for (int x : A) {
+            sum += x;
+        }
+        if ((sum % 3) != 0) {
+            return false;
+        }
+        //avg为数组和的三分之一
+        int avg = sum / 3;
+        //count来记录子数组和为avg的个数
+        int count = 0;
+        //s来记录子数组和
+        int s = 0;
+        for (int x : A) {
+            s += x;
+            //如果子数组的和s等于avg，就把s置为0，同时count++
+            if (s == avg) {
+                s = 0;
+                count++;
+            }
+        }
+        //如果最后 count 等于3，说明有三个子数组和的值为avg，就返回true，否则返回false
+        if (count == 3) {
+            return true;
+        }
+        return false;
+    }
