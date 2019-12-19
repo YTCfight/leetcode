@@ -1,0 +1,23 @@
+ public static int numFriendRequests(int[] ages) {
+       //看的题解 1.
+        Map<Integer, Integer> map = new HashMap<>();
+        //把年龄相同的人安排到同一个集合中
+        for (int x : ages) {
+            int count = map.getOrDefault(x, 0);
+            map.put(x, count + 1);
+        }
+        int result = 0;
+        for (Map.Entry<Integer,Integer> entry1 : map.entrySet()) {
+            for (Map.Entry<Integer,Integer> entry2 : map.entrySet()) {
+                if (entry2.getKey() <= entry1.getKey() * 0.5 + 7 || entry2.getKey() > entry1.getKey()) {
+                    continue;
+                } else {
+                    result += entry1.getValue() * entry2.getValue();
+                    if (entry1.getKey() == entry2.getKey()) {
+                        result -= entry1.getValue();
+                    }
+                }
+            }
+        }
+        return result;
+    }
