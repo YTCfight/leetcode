@@ -1,0 +1,60 @@
+ public static String shortestCompletingWord(String licensePlate, String[] words) {
+        // 先把字符串转化为小写
+        licensePlate = licensePlate.toLowerCase();
+        // l 集合存放 licensePlate 中的字符
+       List<Character> l = new ArrayList<>();
+        //把 licensePlate 中字符放进 l 集合中
+        for (int i = 0; i < licensePlate.length(); i++) {
+            if (licensePlate.charAt(i) >= 'A' && licensePlate.charAt(i) <= 'z') {
+                l.add(licensePlate.charAt(i));
+            }
+        }
+        // list 存放完整词,最后从 list 集合中找出最短的完整词
+        List<String> list = new ArrayList<>();
+        //遍历字符串数组
+        for (int i = 0; i < words.length; i++) {
+            //将取到的字符串转化成字符数组，方便比较。
+            char[] arr = words[i].toCharArray();
+            //把单词放到集合中，放在集合中就不需要提前知道集合的大小。若用数组还要确定数组的大小。
+            List<Character> word = new ArrayList<>();
+            for (int j = 0; j < arr.length; j++) {
+                word.add(arr[j]);
+            }
+            boolean flag = false;
+            //在每个单词集合 word 中查找 l 中的字符
+            for (int j = 0; j < l.size(); j++) {
+                int k = 0;
+                for (; k < word.size(); k++) {
+                    //当在单词集合 word 中找到 l.get(j) 字符后，将该字符换成 ‘$’,以便区分该字符已经用过了。
+                    if (l.get(j) == word.get(k)) {
+                        word.set(k,'$');
+                        break;
+                    }
+                }
+                //当遍历完单词集合 word 后没有找到l.get(j)字符，
+                //说明该字符串不是完整词，将标志符修改为 true，后面就不往 list 集合中添加了。
+                if (k == word.size()) {
+                    flag = true;
+                    break;
+                }
+                //应该把对应的字符设置为 ‘$’,不应该直接按照下标设置
+            }
+            //如果标志符没有改变，说明这个字符串包含了 l 集合中的所有字符，就添加进 list 集合中。
+            if (!flag) {
+                list.add(words[i]);
+            }
+        }
+        String result = "";
+        //当list大小为 1 时，直接返回即可。
+        if (list.size() == 1) {
+            return list.get(0);
+        }
+        result = list.get(0);
+        //在 list 中比较字符串的长度，找出最短完整词
+        for (int i = 1; i < list.size(); i++) {
+            if (list.get(i).length() < result.length()) {
+                result = list.get(i);
+            }
+        }
+        return result;
+    }
