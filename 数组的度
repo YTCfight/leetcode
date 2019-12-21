@@ -1,0 +1,50 @@
+ public int findShortestSubArray(int[] nums) {
+        //先找出数组的度(用HashMap)，然后遍历哈希表，在表中找出等于度大小的数组
+        Map<Integer, Integer> map = new HashMap<>();
+        //先遍历数组，把值和该值出现次数对应起来。
+        for (int x : nums) {
+            int count = map.getOrDefault(x, 0);
+            map.put(x, count + 1);
+        }
+        int du = 0;
+        //遍历哈希表，找出出现次数最大的的数字即该数组的度。
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            if (entry.getValue() > du) {
+                du = entry.getValue();
+            }
+        }
+        int list = Integer.MAX_VALUE;
+        //再次遍历哈希表，当找到某个数字出现的次数等于度时，就进行查找长度。
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            //该数字的次数等于度，进一步查找该数字的最短连续子数组。
+            if (entry.getValue() == du) {
+                //ret 用于判断是否找完所有的该数字
+                int ret = entry.getValue();
+                //result 用于记录该数字的最短连续子数组的长度
+                int result = 0;
+                boolean flag = false;
+                //遍历数组
+                for (int i = 0; i < nums.length; i++) {
+                    //当在数组中找到了第一次出现的该数字后，便开启第二阶段
+                    if (nums[i] == entry.getKey()) {
+                        result++;
+                        ret--;
+                        flag = true;
+                        continue;
+                    }
+                    //开启第二阶段，每出现一个数字，result 都要加一，直到该数字找完。
+                    if (flag == true && ret > 0) {
+                        result++;
+                        if (nums[i] == entry.getKey()) {
+                            ret--;
+                        }
+                    }
+                }
+                //因为在一个数组中数字出现次数等于度的可能有多个，所以要取最短的，list就是比较，取最短的。
+                if (result < list) {
+                    list = result;
+                }
+            }
+        }
+        return list;
+    }
