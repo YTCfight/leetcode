@@ -1,34 +1,14 @@
-//最长和谐子数列
-int SeekArr(int arr[], int len)
-{
-	int i = 0;
-	int count = 0;
-	int hash[8] = { 0 };
-	for (i = 0; i < len; i++)
-	{
-		hash[arr[i]]++;
-	}
-	int sum = hash[0];
-	//计算相邻的两个数字的和，看哪两个数字的和最大。
-	for (i = 1; i < 8; i++)
-	{
-		sum += hash[i];
-		if (sum>count)
-		{
-			count = sum;
-		}
-		sum -= hash[i - 1];
-	}
-	return count;
-}
-int main()
-{
-	int arr[] = { 1, 3, 2, 2, 5, 2, 3, 7 };
-	int len = sizeof(arr) / sizeof(arr[0]);
-	int ret = SeekArr(arr, len);
-	int x = -1;
-	int y = -1;
-	printf("%d\n", ret);
-	system("pause");
-	return 0;
-}
+ public int findLHS(int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int x : nums) {
+            map.put(x, map.getOrDefault(x, 0) + 1);
+        }
+        int result = 0;
+       for (int key : map.keySet()) {
+           if (map.containsKey(key + 1)) {
+               result = Math.max(result, map.get(key) + map.get(key + 1));
+           }
+       }
+       return result;
+    }
+
