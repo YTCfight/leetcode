@@ -1,0 +1,14 @@
+ public int distributeCandies(int[] candies) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int x : candies) {
+            map.put(x, map.getOrDefault(x, 0) + 1);
+        }
+        int count = 0;
+        for (int key : map.keySet()) {
+            count++;
+        }
+        if (count >= candies.length / 2) {
+            return candies.length / 2;
+        }
+        return count;
+    }
