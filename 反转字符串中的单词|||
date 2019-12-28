@@ -1,0 +1,22 @@
+class Solution {
+    // 思路：先根据空格切分数组，放到 arr 字符串数组中，遍历数组每得到一个字符串就放入
+    // stringBuffer中如果不是最后一个字符串还要拼接一个空格，最后以字符串形式输出。
+      public static String reverseWords(String s) {
+        StringBuffer stringBuffer = new StringBuffer();
+        // 将 s 按照空格进行分割
+        String[] arr = s.split(" ");
+        for (int i = 0; i < arr.length; i++) {
+            // stringBuffer 拼接字符串
+            StringBuffer sb = new StringBuffer(arr[i]);
+            sb.reverse();
+            stringBuffer.append(sb);
+            // 如果不是最后一个字符串还要拼接一个空格
+            if (i != arr.length - 1) {
+                stringBuffer.append(" ");
+            }
+        }
+        // 最后以字符串形式输出
+        return stringBuffer.toString();
+    }
+
+}
