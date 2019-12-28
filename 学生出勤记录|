@@ -1,0 +1,24 @@
+class Solution {
+    public boolean checkRecord(String s) {
+        char[] arr = s.toCharArray();
+        int countOfA = 0;
+        int countOfConL = 0;
+        for (char c : arr) {
+            if (c == 'A') {
+                countOfA++;
+            }
+            if (countOfA == 2) {
+                return false;
+            }
+            if (c == 'L') {
+                countOfConL++;
+            } else {
+                countOfConL = 0;
+            }
+            if (countOfConL == 3) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
