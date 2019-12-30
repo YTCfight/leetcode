@@ -1,0 +1,27 @@
+ public int longestPalindrome(String s) {
+        //思路：用哈希表根据每个字符存储区来，最长回文串就是所有偶数加上最大的奇数加上(奇数 - 1),其中奇数 1 除外。
+        int result = 0;
+        char[] arr = s.toCharArray();
+        Map<Character, Integer> map = new HashMap<>();
+        for (char c : arr) {
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
+        int maxOfJishu = 0;
+        for (Map.Entry<Character, Integer> entry : map.entrySet()) {
+            if (entry.getValue() % 2 == 0) {
+                result += entry.getValue();
+                continue;
+            }
+            if (entry.getValue() % 2 == 1 && entry.getValue() > maxOfJishu) {
+                if (maxOfJishu != 0) {
+                    result += (maxOfJishu - 1);
+                }
+                maxOfJishu = entry.getValue();
+                continue;
+            }
+            if (entry.getValue() % 2 == 1 && entry.getValue() != 1) {
+                result += (entry.getValue() - 1);
+            }
+        }
+        return result + maxOfJishu;
+    }
