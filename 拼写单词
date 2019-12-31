@@ -1,0 +1,46 @@
+ public static int countCharacters(String[] words, String chars) {
+        Map<Character, Integer> map = new HashMap<>();
+        // 返回最终结果
+        int result = 0;
+        // 用哈希表保存 chars
+        for (char c : chars.toCharArray()) {
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
+        // 遍历 words 数组
+        for (int i = 0; i < words.length; i++) {
+            boolean flag = false;
+            char[] arr = words[i].toCharArray();
+            // 遍历 words 数组的每一个元素
+            for (int j = 0; j < arr.length; j++) {
+                // 如果该元素中有一个字符在 map 数组中的值为 value，说明 chars 不能拼写该元素
+                if (map.getOrDefault(arr[j], 0) == 0) {
+                    flag = true;
+                    break;
+                }
+            }
+            boolean flag2 = false;
+            // 能进入下面 if 条件说明该元素的所有字符在 chars 中都可以找到，但是还需要判断数量能否够
+            if (!flag) {
+                for (int j = 0; j < arr.length; j++) {
+                    int ret = map.getOrDefault(arr[j], 0);
+                    // 当判断到某个字符的数量到达 0 时，说明要拼成该元素已经不够了，直接跳出循环
+                    if (ret == 0) {
+                        flag2 = true;
+                        break;
+                    }
+                    // 如果数量够就把对应的 value 值减一
+                    map.put(arr[j], ret - 1);
+                }
+                // 如果标志位没变，就在结果中加上该元素的数量
+                if (!flag2) {
+                    result += arr.length;
+                }
+            }
+            // 因为该 map 已经发生了变化，所以需要重新初始化该 map
+            map.clear();
+            for (char c : chars.toCharArray()) {
+                map.put(c, map.getOrDefault(c, 0) + 1);
+            }
+        }
+        return result;
+    }
