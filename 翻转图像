@@ -1,0 +1,35 @@
+   public static int[][] flipAndInvertImage(int[][] A) {
+        int[][] arr = new int[A.length][A[0].length];
+        for (int i = 0; i < A.length; i++) {
+            int left = 0;
+            int right = A[i].length - 1;
+            while (left <= right) {
+                if (left == right) {
+                    if (A[i][left] == 0) {
+                        arr[i][left] = 1;
+                    } else {
+                        arr[i][left] = 0;
+                    }
+                    break;
+                }
+                if (A[i][left] == 0) {
+                    A[i][left] = 1;
+                } else {
+                    A[i][left] = 0;
+                }
+                if (A[i][right] == 0) {
+                    A[i][right] = 1;
+                } else {
+                    A[i][right] = 0;
+                }
+                int ret = A[i][left];
+                A[i][left] = A[i][right];
+                arr[i][left] = A[i][right];
+                A[i][right] = ret;
+                arr[i][right] = ret;
+                left++;
+                right--;
+            }
+        }
+        return arr;
+    }
