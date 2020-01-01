@@ -1,0 +1,60 @@
+class Solution {
+    //思路：取两个字符串中较长的长度再加一作为字符串的长度，因为当最高位大于 10 时会往前面进一位，所以要多出一位来。
+    //先把两个字符串转换成字符串数组，方便后面的相加，
+    //直接用int数组保存结算的每一位结果，最后把int数组中的数字拼接转换成字符串即可。
+    public String addStrings(String num1, String num2) {
+        int len1 = num1.length();
+        int len2 = num2.length();
+        //保存结果的数组的长度。
+        int len = Math.max(len1, len2) + 1;
+        int[] arr = new int[len];
+        //将字符串转换成字符串数组
+        char[] arr1 = num1.toCharArray();
+        char[] arr2 = num2.toCharArray();
+        //进行具体的相加操作
+        while (len1 > 0 && len2 > 0) {
+            //如果该位大于 10，需要往前面进位
+            arr[len - 1] = arr[len - 1] + arr1[len1 - 1] + arr2[len2 - 1] - 96;
+            if (arr[len - 1] > 9) {
+                //直接存放整数
+                arr[len - 1] -= 10;
+                //前一位加一
+                arr[len - 1 - 1] = 1;
+            }
+            len--;
+            len1--;
+            len2--;
+        }
+        //如果其中有一个字符串计算完成了，则需要把另外一个未计算的加到结果中
+        //当字符串1算完，二字符串2未算完
+        while (len1 == 0 && len2 != 0) {
+            arr[len - 1] = arr[len - 1] + arr2[len2 - 1] - 48;
+            if (arr[len - 1] > 9) {
+                arr[len - 1] -= 10;
+                arr[len - 2] = 1;
+            }
+            len--;
+            len2--;
+        }
+        //当字符串2算完，二字符串1未算完
+        while (len2 == 0 && len1 != 0) {
+            arr[len - 1] = arr[len - 1] + arr1[len1 - 1] - 48;
+            if (arr[len - 1] > 9) {
+                arr[len - 1] -= 10;
+                arr[len - 2] = 1;
+            }
+            len--;
+            len1--;
+        }
+        //用 StringBuffer 进行拼接
+        StringBuffer sb = new StringBuffer();
+        if (arr[0] != 0) {
+            sb.append("" + arr[0]);
+        }
+        for (int i = 1; i < arr.length; i++) {
+            sb.append("" + arr[i]);
+        }
+        //最后将 StringBuffer 转换成字符串输出
+        return sb.toString();
+    }
+}
