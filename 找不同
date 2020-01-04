@@ -1,0 +1,13 @@
+  public char findTheDifference(String s, String t) {
+        String q = s + t;
+        Map<Character, Integer> map = new HashMap<>();
+        for (char c : q.toCharArray()) {
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
+        for (Map.Entry<Character, Integer> entry : map.entrySet()) {
+            if (entry.getValue() % 2 == 1) {
+               return entry.getKey();
+            }
+        }
+        return 'a';
+    }
