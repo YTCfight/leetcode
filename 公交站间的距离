@@ -1,0 +1,25 @@
+class Solution {
+    //思路：求两点之间的距离就只有两种方式，一种是从 start 到 destination，另一种是从 destination 到 start。
+    // 求两者的较小者即可。
+    public int distanceBetweenBusStops(int[] distance, int start, int destination) {
+        // 记录从 start 到 destination 的距离
+        int len1 = 0;
+        // 记录从 destination 到 start 的距离
+        int len2 = 0;
+        int cur1 = start;
+        int cur2 = destination;
+        while(cur1 != destination) {
+            // 进行记录
+            len1 += distance[cur1];
+            // 更新起点
+            cur1 = (cur1 + 1) % distance.length;
+        }
+        while(cur2 != start) {
+            // 进行记录
+            len2 += distance[cur2];
+            // 更新起点
+            cur2 = (cur2 + 1) % distance.length;
+        }
+        return Math.min(len1, len2);
+    }
+}
