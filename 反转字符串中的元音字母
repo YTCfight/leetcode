@@ -1,0 +1,30 @@
+class Solution {
+    public static String reverseVowels(String s) {
+        char[] arr = s.toCharArray();
+        int left = 0;
+        int right = s.length() - 1;
+        while (left < right) {
+            while (left < right && arr[left] != 'a' && arr[left] != 'e'
+                    && arr[left] != 'i' && arr[left] != 'o' && arr[left] != 'u' && arr[left] != 'A' &&
+                    arr[left] != 'E' && arr[left] != 'I' && arr[left] != 'O' && arr[left] != 'U') {
+                left++;
+            }
+            while (left < right && arr[right] != 'a' && arr[right] != 'e'
+                    && arr[right] != 'i' && arr[right] != 'o' && arr[right] != 'u' && arr[right] != 'A' &&
+                    arr[right] != 'E' && arr[right] != 'I' && arr[right] != 'O' && arr[right] != 'U') {
+                right--;
+            }
+            swap(arr, left, right);
+            left++;
+            right--;
+        }
+        String m = String.valueOf(arr);
+        return m;
+    }
+    private static void swap(char[] arr, int left, int right) {
+        char c = arr[left];
+        arr[left] = arr[right];
+        arr[right] = c;
+    }
+
+}
