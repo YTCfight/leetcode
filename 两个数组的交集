@@ -1,0 +1,31 @@
+class Solution {
+    //思路：先创建一个哈希表来存储两个数组中的数字和出现次数，先遍历 num1，如果某个数字出现就把对应的 value 设置为1，
+    //然后遍历 num2，此时哈希表的 value 值只有 0 和 1，如果某个数字的 value 等于 1 说明该数字在 num1中出现过，如果该
+    //数字的 value 为0，说明该数字没有在 num1 中出现过。就把该数字的 value 设置为2以区别。并添加到 list 集合中。
+    //因为 list 会添加重复的数字，因此添加该数字之前先判断该数字是否已经在 list 集合中有了，如果有了就不需要添加了。
+    //最后将 list 集合中的数字放到数组中返回即可。
+   public static int[] intersection(int[] nums1, int[] nums2) {
+        Map<Integer, Integer> map = new HashMap<>();
+        // num1 中的数字添加到哈希表中。
+        for (int x : nums1) {
+            map.put(x, 1);
+        }
+        List<Integer> list = new LinkedList<>();
+        //遍历 num2 并判断其中的数字是否在 num1 中出现了
+        for (int x : nums2) {
+            //如果没有出现先把该数字的 value 值设置为 2，以区分前面出现过数字的value值。并添加到 list 集合中
+            if (map.getOrDefault(x, 2) != 2) {
+                //由于 list 会添加重复的值，因此在添加之前，先判断该数字是否已经在 list 集合中出现了
+                if (!list.contains(x)) {
+                    list.add(x);
+                }
+            }
+        }
+        //最后将 list 集合中的数字添加到数组中即可。
+        int[] arr = new int[list.size()];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = list.get(i);
+        }
+        return arr;
+    }
+}
