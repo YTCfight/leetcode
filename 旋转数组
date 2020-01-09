@@ -28,3 +28,30 @@ int main()
 	system("pause");
 	return 0;
 }
+
+
+
+
+//java版
+
+class Solution {
+    public void rotate(int[] nums, int k) {
+        // 如果数组长度为 1，直接返回
+        if (nums.length == 1) {
+            return;
+        }
+        while (k > 0) {
+            // 先处理 nums[0]
+            // ret 记录该位数变化之前的数字
+            int ret = nums[0];
+            nums[0] = nums[nums.length - 1];
+            for (int i = 1; i < nums.length; i++) {
+            // pre 记录变化之前的数字
+            int pre = nums[i];
+             nums[i] = ret;
+             ret = pre;
+            }
+            k--;
+        }
+    }
+}
