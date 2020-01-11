@@ -74,3 +74,59 @@ int main()
 	system("pause");
 	return 0;
 }
+
+
+
+// Java
+
+class Solution {
+       public static String addBinary(String a, String b) {
+        char[] arr1 = a.toCharArray();
+        char[] arr2 = b.toCharArray();
+        int len = Math.max(arr1.length, arr2.length) + 1;
+        int ret = len;
+        int[] arr = new int[len];
+        int len1 = arr1.length;
+        int len2 = arr2.length;
+        while (len1 > 0 && len2 > 0) {
+            int c = arr[len - 1] + arr1[len1 - 1] + arr2[len2 - 1] - 96;
+            if (c >= 2) {
+                c -= 2;
+                arr[len - 2] = 1;
+            }
+            arr[len - 1] = c;
+            len--;
+            len1--;
+            len2--;
+        }
+        while(len1 > 0 && len2 == 0) {
+            int c = arr[len - 1] + arr1[len1 - 1] - 48;
+            if (c >= 2) {
+                c -= 2;
+                arr[len - 2] = 1;
+            }
+            arr[len - 1] = c;
+            len--;
+            len1--;
+        }
+        while(len1 == 0 && len2 > 0) {
+            int c = arr[len - 1] + arr2[len2 - 1] - 48;
+            if (c >= 2) {
+                c -= 2;
+                arr[len - 2] = 1;
+            }
+            arr[len - 1] = c;
+            len--;
+            len2--;
+        }
+        int i = 0;
+        if (arr[0] == 0) {
+            i = 1;
+        }
+        StringBuffer sb = new StringBuffer();
+        for (; i < ret; i++) {
+            sb.append("" + arr[i]);
+        }
+        return sb.toString();
+    }
+}
