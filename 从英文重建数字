@@ -1,0 +1,26 @@
+class Solution {
+    public String originalDigits(String s) {
+        char[] chars = new char[(int)'a' + 26];
+        for (char c : s.toCharArray()) {
+            chars[c]++;
+        }
+        int[] arr = new int[10];
+        arr[0] = chars['z'];
+        arr[2] = chars['w'];
+        arr[4] = chars['u'];
+        arr[6] = chars['x'];
+        arr[8] = chars['g'];
+        arr[3] = chars['h'] - arr[8];
+        arr[5] = chars['f'] - arr[4];
+        arr[7] = chars['s'] - arr[6];
+        arr[9] = chars['i'] - arr[5] - arr[6] - arr[8];
+        arr[1] = chars['n'] - arr[7] - 2 * arr[9];
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < 10; i++) {
+            for(int j = 0; j < arr[i]; j++) {
+                sb.append(i);
+            }
+        }
+        return sb.toString();
+    }
+}
