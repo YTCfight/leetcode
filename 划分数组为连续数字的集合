@@ -1,0 +1,46 @@
+class Solution {
+    //思路：如果数组个数len不是k的倍数，说明不可能划分；
+    //拿一个Map统计每个元素出现的次数，然后从小到大遍历数组，每次拿第一个count不能0（遍历过程中，若元素被归到前面集合，count要更新的）的元素为起点，看看后面是否能构成k个连续的集合。若一发现不能构成k个连续集合，就立马reture false。
+    //为了更加快速的结束，可以定义一个集合数，总的需要划分的集合数为 len / k，如果遍历过程中的集合数达到这个总的集合数，就可以立马结束。
+    public boolean isPossibleDivide(int[] nums, int k) {
+        // 如果数组长度不是 k 的整数倍，直接返回 false；
+        if (nums.length % k != 0) {
+            return false;
+        }
+        // 对数组排序
+        Arrays.sort(nums);
+        // 用哈希表统计每个数字出现次数
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int x: nums) {
+            map.put (x, map.getOrDefault(x, 0) + 1);
+        }
+        // sumOfGroup 为最后分成组的数量
+        int sumOfGroup = nums.length / 4;
+        // group 为当前组的数量
+        int group = 0;
+        for (int i : nums) {
+            int count = map.get(i);
+            // 如果 count 等于 0，说明该数字用在了前一个组中了，
+            // 直接 continue
+            if (count == 0) {
+                continue;
+            }
+            // 查看当前组的数字
+            for (int j = 0; j < k; j++) {
+                // 如果在该组中有数字的 value 值为 0，说明数组中没有该数字了，就直接返回 false
+                if (map.getOrDefault(i + j, 0) == 0) {
+                    return false;
+                }
+                // 如果数组中有该数字，就把 value 值减一
+                map.put(i + j, map.get(i + j) - 1);
+            }
+            // 更新组的数量
+            group++;
+            // 如果当前组的数量已经达到了最后分成组的数量，就直接返回 true；
+            if (group == sumOfGroup) {
+                return true;
+            } 
+        }
+        return true;
+    }
+}
