@@ -1,0 +1,20 @@
+class Solution {
+    public int climbStairs(int n) {
+        if (n == 2) {
+            return 2;
+        }
+        if (n == 1) {
+            return 1;
+        }
+        int a = 2;
+        int b = 1;
+        int c = a + b;
+        while (n >= 3) {
+            c = a + b;
+            b = a;
+            a = c;
+            n--;
+        }
+        return c;
+    }
+}
