@@ -1,0 +1,31 @@
+class Solution {
+    public boolean isLongPressedName(String name, String typed) {
+        // 如果 typed 的长度小于 name 的长度直接返回 false
+        if (typed.length() < name.length()) {
+            return false;
+        } 
+        // 将 typed 和 name 转换成字符数组，方便后面的操作      
+       char[] typedArr = typed.toCharArray();
+       char[] nameArr = name.toCharArray();
+       // count 记录 j 的下一次开始位置
+       int count = 0;
+       // 遍历 nameArr 数组
+       for (int i = 0; i < nameArr.length; i++) {
+           // j 从上次记录的 count 位置开始遍历 typedArr 数组
+           int j = count;
+           // 遍历 typedArr 数组
+           for (; j < typedArr.length; j++) {
+               // 如果当前的 typedArr 数组的字符等于 nameArr 数组的字符，就跳出内循环，进行查找nameArr的下一个字符
+               if (typedArr[j] == nameArr[i]) {
+                   count = j + 1;
+                   break;
+               }
+           }
+           // 如果下面的条件成立，说明 typedArr 数组已经遍历完了，但是没有找到 nameArr 数组的当前字符，就返回 false
+           if (j == typedArr.length) {
+               return false;
+           }
+       }
+       return true;
+    }
+}
