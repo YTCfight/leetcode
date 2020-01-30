@@ -1,0 +1,30 @@
+class Solution {
+    public ListNode sortList(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        int len = size(head);
+        int[] arr = new int[len];
+        ListNode cur = head;
+        for (int i = 0; i < len; i++) {
+            arr[i] = cur.val;
+            cur = cur.next;
+        }
+        Arrays.sort(arr);
+        ListNode node = new ListNode(arr[0]);
+        ListNode n = node;
+        for (int i = 1; i < len; i++) {
+            ListNode c = new ListNode(arr[i]);
+            node.next = c;
+            node = c;
+        }
+        return n;
+    }
+    private int size(ListNode head) {
+        int count = 0;
+        for (ListNode cur = head; cur != null; cur = cur.next) {
+            count++;
+        }
+        return count;
+    }
+}
