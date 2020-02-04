@@ -1,0 +1,22 @@
+class Solution {
+    // 参考的
+    // https://leetcode-cn.com/problems/valid-palindrome-ii/solution/javashuang-zhi-zhen-jian-dan-yi-dong-by-cui-dan/
+    public boolean validPalindrome(String s) {
+        for (int i = 0, j = s.length() - 1; i < j; i++, j--) {
+            if (s.charAt(i) != s.charAt(j)) {
+                return fun(s, i + 1, j) || fun(s, i, j - 1);
+            }
+        }
+        return true;
+    }
+    private boolean fun(String s, int i, int j) {
+        while(i < j) {
+            if (s.charAt(i) != s.charAt(j)) {
+                return false;
+            }
+            i++;
+            j--;
+        }
+        return true;
+    }
+}
