@@ -1,0 +1,68 @@
+class Solution {
+    // 最外层循环结束是在最长的单词遍历完成之后。
+     public static boolean isAlienSorted(String[] words, String order) {
+        int len = words.length;
+        // 最长单词的长度
+        int maxLen = words[0].length();
+        for (int i = 0; i < len - 1; i++) {
+            if (words[i].length() > words[i + 1].length()) {
+                maxLen = words[i].length();
+            }
+        }
+        // 记录遍历到每个单词的位置
+        int j = 0;
+        // 当 count 到达一定条件后，就直接返回 true
+        int count = 0;
+        while (maxLen != 0) {
+            // 循环遍历每个单词的指定位置的字符
+            for (int i = 0; i < len - 1; i++) {
+                int len1 = words[i].length();
+                int len2 = words[i + 1].length();
+                char c1 = ' ';
+                char c2 = ' ';
+                int index1 = 0;
+                int index2 = 0;
+                // c1 为前一个字符串指定位置的字符
+                if (j < len1) {
+                    c1 = words[i].charAt(j);
+                } else {
+                    // - 1说明该单词已经遍历完成了
+                    index1 = -1;
+                }
+                // c2 为后一个字符串指定位置的字符                
+                if (j < len2) {
+                    c2 = words[i + 1].charAt(j);
+                } else {
+                    // - 1说明该单词已经遍历完成了
+                    index2 = -1;
+                }
+                // 如果不是 -1 ，就找到该字符在 order 中的下标
+                if (index1 != -1) {
+                    index1 = order.indexOf(c1);
+                }
+                // 如果不是 -1 ，就找到该字符在 order 中的下标
+                if (index2 != -1) {
+                    index2 = order.indexOf(c2);
+                }
+                // 如果前一个字符串的指定字符的位置大于后一个的，直接返回 false
+                if (index1 > index2) {
+                    return false;
+                }
+                if (index1 < index2) {
+                    count++;
+                }
+            }
+            // 当 count 等于 len - 1 是，说明该字符都是按照字典序排列的，直接返回 true
+            if (count == len - 1) {
+                return true;
+            }
+            // 否则，说明有相同的字符，需要下一轮的比较
+            count = 0;
+            // 更新比较的下一个字符的下标
+            j++;
+            // 同时更新maxLen
+            maxLen--;
+        }
+        return true;
+    }
+}
