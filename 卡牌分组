@@ -1,0 +1,21 @@
+class Solution {
+    public boolean hasGroupsSizeX(int[] deck) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < deck.length; i++) {
+            map.put(deck[i], map.getOrDefault(deck[i], 0) + 1);
+        }
+        int x = 0;
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            x = fun(x, entry.getValue());
+        }
+        return x >= 2;
+    }
+    private int fun(int a, int b) {
+        while(a % b != 0) {
+            int c = a % b;
+            a = b;
+            b = c;
+        }
+        return b;
+    }
+}
