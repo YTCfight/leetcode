@@ -1,4 +1,4 @@
-//查询后的偶数和
+
 #define NUMBER 4
 void Fun(int arr1[], int arr2[][2])
 {
