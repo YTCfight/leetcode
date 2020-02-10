@@ -1,0 +1,23 @@
+class Solution {
+    public int subtractProductAndSum(int n) {
+        return mul(n) - add(n);
+    }
+    private int add(int n) {
+        int result = 0;
+        while (n != 0) {
+            int ret = n % 10;
+            result += ret;
+            n /= 10;
+        }
+        return result;
+    }
+    private int mul(int n) {
+        int result = 1;
+        while (n != 0) {
+            int ret = n % 10;
+            result *= ret;
+            n /= 10;
+        }
+        return result;
+    }
+}
