@@ -1,0 +1,30 @@
+class Solution {
+    public int twoCitySchedCost(int[][] costs) {
+        int[] arr = new int[2000];
+        int sum = 0;
+        for (int[] i : costs) {
+            // 全部按照去往 A 地计算
+            sum += i[0];
+            // 下标准备计算去往 B 地的
+            arr[i[1] - i[0] + 1000]++;
+        }
+        // 遍历 arr 数组的下标
+        int index = 0;
+        // 标记是否准备结束的下标
+        int i = 0;
+        while (index < arr.length && i < costs.length / 2) {
+            // 当 arr[index] 大于 0 ，准备累加去往 B 地的。因为在去往 B地中，i[1] - i[0] 等于负数，所以在整个 arr
+            // 数组的前面，所以先累加去往 B 地的。
+            while(arr[index] > 0 && i < costs.length / 2) {
+                // 累计去往 B 地的
+                sum += (index - 1000);
+                i++;
+                // 当有多个数字时，要进行多次计算；比如：{20， 10} {30， 20}；在该下标中就有两个数字，就需要多次计算
+                arr[index]--;
+            }
+            // 更新下标
+            index++;
+        }
+        return sum;
+    }
+}
