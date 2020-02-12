@@ -1,0 +1,38 @@
+链接：https://www.nowcoder.com/questionTerminal/bd891093881d4ddf9e56e7cc8416562d?orderByHotValue=0&page=1&onlyReference=false
+
+
+package ytc;
+import java.util.*;
+public class Kaoshi {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        while(sc.hasNext()) {
+            String line = sc.nextLine();
+            help(line);
+        }
+    }
+    public static void help(String s) {
+        if (s == null) {
+            System.out.println();
+        }
+        StringBuffer result = new StringBuffer();
+        StringBuffer sb = new StringBuffer();
+        assert s != null;
+        char[] chars = s.toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            char c = chars[i];
+            if (c >= '0' && c <= '9') {
+                sb.append(c);
+            } else {
+                if (sb.length() > result.length()) {
+                    result = sb;
+                }
+                sb = new StringBuffer();
+            }
+        }
+        if (sb.length() > result.length()) {
+            result = sb;
+        }
+        System.out.println(result.toString());
+    }
+}
