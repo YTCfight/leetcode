@@ -1,0 +1,36 @@
+class Solution {
+    public List<String> subdomainVisits(String[] cpdomains) {
+        // 用哈希表记录字符串和对应的值
+        Map<String, Integer> map = new HashMap<>();
+        for (String s : cpdomains) {
+            // 先按照空格来分隔一个
+            String[] ss = s.split(" ");
+            // n 字符串前面的系数
+            int n = Integer.valueOf(ss[0]);
+            // 累加该字符串的次数
+            map.put(ss[1], map.getOrDefault(ss[1], 0) + n);
+            // 由于 split() 方法是根据正则表达式，所以 . 需要转义
+            String[] sss = ss[1].split("\\.", 2);
+            // 累加按照 . 分隔后的字符串
+            map.put(sss[1], map.getOrDefault(sss[1], 0) + n); 
+            // 如果还有 . ，则继续根据 . 划分字符串
+            if (sss[1].contains(".")) {
+                    while (true) {
+                    String[] ssss = sss[1].split("\\.");
+                    map.put(ssss[1], map.getOrDefault(ssss[1], 0) + n);                
+                    if (!ssss[1].contains(".")) {
+                        break;
+                    }
+                }
+            }           
+        }
+        List<String> list = new ArrayList<>();
+        // 根据哈希表中的键和值放入 list 集合中。
+        for (Map.Entry<String,Integer> entry : map.entrySet()) {
+            StringBuffer sb = new StringBuffer();
+            sb.append(entry.getValue() + " " + entry.getKey());
+            list.add(sb.toString());
+        }
+        return list;
+    }
+}
