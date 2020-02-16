@@ -1,0 +1,18 @@
+class Solution {
+    public List<String> letterCasePermutation(String S) {
+        List<String> list = new ArrayList<>();
+        help(S.toCharArray(), 0, list);
+        return list;
+    }
+    public void help(char[] chars, int i, List<String> list) {
+        if (i == chars.length) {
+            list.add(String.valueOf(chars));
+            return;
+        }
+        help(chars, i + 1, list);
+        if (chars[i] >= 'A') {
+            chars[i] ^= 32;
+            help(chars, i + 1, list);
+        }
+    }
+}
