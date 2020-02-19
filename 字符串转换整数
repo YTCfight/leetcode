@@ -1,0 +1,74 @@
+class Solution {
+     public static int myAtoi(String str) {
+        str = str.trim();
+        if (str.length() == 0) {
+            return 0;
+        }
+        boolean flag1 = false;
+        char[] chars = str.toCharArray();
+        if (chars[0] == '-') {
+            if (chars.length >= 2 && chars[1] == '+') {
+                return 0;
+            }
+        } else if (chars[0] == '+') {
+            chars[0] = '0';
+            flag1 = true;
+            if (chars.length >= 2 && chars[1] == '-') {
+                return 0;
+            }
+        } else if (chars[0] < '0' || chars[0] > '9') {
+            return 0;
+        }
+        StringBuffer sb = new StringBuffer();
+        boolean flag = false;
+        for (int i = 0; i < chars.length; i++) {
+            if (!flag && chars[0] == '-') {
+                sb.append(chars[i]);
+                flag = true;
+                continue;
+            }
+            if (chars[i] >= '0' && chars[i] <= '9') {
+                sb.append(chars[i]);
+            } else {
+                break;
+            }
+        }
+        if (sb.toString().equals("-")) {
+            return 0;
+        }
+        if (flag1 && sb.toString().equals("0")) {
+            return 0;
+        }
+        while (true) {
+            if (sb.length() != 0 && sb.charAt(0) == '0') {
+                sb.deleteCharAt(0);
+            } else {
+                break;
+            }
+        }
+         while (true) {
+            if (sb.length() >= 2 && sb.charAt(0) == '-' && sb.charAt(1) == '0') {
+                sb.deleteCharAt(1);
+            } else {
+                break;
+            }
+        }
+         if (sb.toString().equals("") || sb.toString().equals("-")) {
+            return 0;
+        }
+        if (sb.toString().length() > 11 && chars[0] == '-') {
+            return Integer.MIN_VALUE;
+        }
+        if (sb.toString().length() > 10 && chars[0] != '-') {
+            return Integer.MAX_VALUE;
+        }
+        long a = Long.valueOf(sb.toString());
+        if (a > Integer.MAX_VALUE) {
+            return Integer.MAX_VALUE;
+        }
+        if (a < Integer.MIN_VALUE) {
+            return Integer.MIN_VALUE;
+        }
+        return (int) a;
+    }
+}
