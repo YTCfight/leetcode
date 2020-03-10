@@ -1,0 +1,24 @@
+class Solution {
+    public int[] getNoZeroIntegers(int n) {
+        int[] arr = new int[2];
+        for (int i = 1; i <= (n / 2); i++) {
+            int another = n - i;
+            if (help(i) && help(another)) {
+                arr[0] = i;
+                arr[1] = another;
+                break;
+            }
+        }
+        return arr;
+    }
+    public boolean help(int n) {
+        while(n > 0) {
+            int ret = n % 10;
+            if (ret == 0) {
+                return false;
+            }
+            n /= 10;
+        }
+        return true;
+    }
+}
