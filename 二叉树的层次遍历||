@@ -1,0 +1,27 @@
+class Solution {
+    List<List<Integer>> result = new ArrayList<>();
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        if (root == null) {
+            return result;
+        }
+        help(root, 0);
+        List<List<Integer>> res = new ArrayList<>();
+        int count = result.size() - 1;
+        for (int n = count; n >= 0; n--) {
+            res.add(result.get(n));
+        }
+        return res;
+    }
+    private void help(TreeNode root, int level) {
+        if (level == result.size()) {
+            result.add(new ArrayList<>());
+        }
+        result.get(level).add(root.val);
+        if (root.left != null) {
+            help(root.left, level + 1);
+        }
+        if (root.right != null) {
+            help(root.right, level + 1);
+        }
+    }
+}
