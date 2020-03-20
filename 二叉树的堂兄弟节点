@@ -1,0 +1,60 @@
+class Solution {
+    // 思路：先求出层次遍历，看x跟y是否在同一层，如果在再找到上一层元素再从上一层元素判断x跟y是否是同个父节点。
+    public boolean isCousins(TreeNode root, int x, int y) {
+        if (root == null || (root.left == null && root.right == null)) {
+            return false;
+        }
+        List<List<Integer>> list = new ArrayList<>();
+        list = help(root);
+        for (int i = 1; i < list.size(); i++) {
+            if (list.get(i).contains(x) && list.get(i).contains(y)) {
+                List<Integer> ll = list.get(i - 1);
+                for (int t : ll) {
+                    TreeNode n = help2(root, t);
+                   if ((n.left != null && n.right != null) && ((n.left.val == x && n.right.val == y) || (n.left.val == y && n.right.val == x))) {
+                       return false;
+                   }
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+    public List<List<Integer>> help(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while(!queue.isEmpty()) {
+            List<Integer> list = new ArrayList<>();
+            int cnt = queue.size();
+            while(cnt-- > 0) {
+                TreeNode cur = queue.poll();
+                list.add(cur.val);
+                if (cur.left != null) {
+                    queue.offer(cur.left);
+                }
+                if (cur.right != null) {
+                    queue.offer(cur.right);
+                }
+            }
+            result.add(list);
+        }
+        return result;
+    }
+    public TreeNode help2(TreeNode root, int x) {
+        if (root == null) {
+            return null;
+        }
+        if (root.val == x) {
+            return root;
+        }
+        TreeNode node = help2(root.left, x);
+        if (node != null) {
+            return node;
+        }
+        return help2(root.right, x);
+    }
+}
