@@ -16,7 +16,7 @@ class Solution {
             if (min == arr[five] * 5) {
                 five++;
             }
-            arr[i] = min;
+            arr[i] = min; 
         }
         return arr[n - 1];
     }
