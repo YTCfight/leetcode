@@ -1,0 +1,56 @@
+class Solution {
+    public int orangesRotting(int[][] grid) {
+        int time = 1;
+        boolean flag = true;
+        int[][] arr = new int[grid.length][grid[0].length];
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == 2) {
+                    arr[i][j] = time;
+                } else {
+                    arr[i][j] = 0;
+                }
+            }
+        }
+        while(flag) {
+            flag = false;
+            for (int i = 0; i < grid.length; i++) {
+                for (int j = 0; j < grid[0].length; j++) {
+                    if (grid[i][j] == 2 && arr[i][j] == time) {
+                        if (i > 0 && grid[i - 1][j] == 1) {
+                            grid[i - 1][j] = 2;
+                            arr[i - 1][j] = time + 1;
+                            flag = true;
+                        }
+                        if (i < grid.length - 1 && grid[i + 1][j] == 1) {
+                            grid[i + 1][j] = 2;
+                            arr[i + 1][j] = time + 1;
+                            flag = true;
+                        }
+                        if (j > 0 && grid[i][j - 1] == 1) {
+                            grid[i][j - 1] = 2;
+                            arr[i][j - 1] = time + 1;
+                            flag = true;
+                        }
+                        if (j < grid[i].length - 1 && grid[i][j + 1] == 1) {
+                            grid[i][j + 1] = 2;
+                            arr[i][j + 1] = time + 1;
+                            flag = true;
+                        }
+                    }
+                }
+            }
+            if (flag) {
+                time++;
+            }
+        }
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == 1) {
+                    return -1;
+                }
+            }
+        }
+        return time - 1;
+    }
+}
