@@ -4,7 +4,7 @@
         for (int i = 0; i < address.length(); i++) {
             //取出当前的字符
             char ret = address.charAt(i);
-            //遇到 “.” 就进行替换
+            //遇到 “.” 就进行替换 
             if (ret == '.') {
                 sb.append("[.]");
                 continue;
