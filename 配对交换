@@ -1,0 +1,9 @@
+class Solution {
+    public int exchangeBits(int num) {
+        int ji = num & 0x55555555;
+        int ou = num & 0xaaaaaaaa;
+        ji = ji << 1;
+        ou = ou >>> 1;
+        return ji | ou;
+    }
+}
