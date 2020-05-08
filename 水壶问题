@@ -1,0 +1,19 @@
+class Solution {
+    public boolean canMeasureWater(int x, int y, int z) {
+        if (z > x + y) {
+            return false;
+        }
+        Set<Integer> set = new HashSet<>();
+        return help(x, y, z, set);
+    }
+    public boolean help(int x, int y, int z, Set<Integer> set) {
+        if (set.contains(z)) {
+            return false;
+        }
+        if (z == x || z == y || z == x + y || z == Math.abs(x - y)) {
+            return true;
+        }
+        set.add(z);
+        return help(x, y, Math.abs(z - x), set) || help(x, y, Math.abs(z - y), set);
+    }
+}
