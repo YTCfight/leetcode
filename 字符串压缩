@@ -1,0 +1,21 @@
+class Solution {
+    public String compressString(String S) {
+        if (S == null || S.length() == 0) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append(S.charAt(0));
+        int count = 1;
+        for (int i = 1; i < S.length(); i++) {
+            if (sb.charAt(sb.length() - 1) == S.charAt(i)) {
+                count++;
+            } else {
+                sb.append(count);
+                sb.append(S.charAt(i));
+                count = 1;
+            }
+        }
+        sb.append(count);
+        return sb.length() >= S.length() ? S : sb.toString();
+    }
+}
