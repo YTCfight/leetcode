@@ -1,0 +1,34 @@
+class Solution {
+    public int findInMountainArray(int target, MountainArray mountainArr) {
+        int p_idx = peakIndex(mountainArr);
+        int res = binarySearch(target, mountainArr, 0, p_idx, true);
+        return res >= 0 ? res : binarySearch(target, mountainArr, p_idx, mountainArr.length() - 1, false);
+    }
+
+    private int peakIndex(MountainArray mountainArr) {
+        int low = 0, high = mountainArr.length() - 1;
+        while (low < high) {
+            int mid = (low + high) >> 1;
+            if (mid == 0) return 1;
+            if (mid == mountainArr.length() - 1) return mountainArr.length() - 2;
+            Integer mid_val = mountainArr.get(mid),
+                    left_val = mountainArr.get(mid - 1),
+                    right_val = mountainArr.get(mid + 1);
+            if (mid_val > left_val && mid_val > right_val) return mid;
+            if (left_val - mid_val > 0) high = mid - 1;
+            else low = mid + 1;
+        }
+        return low;
+    }
+
+    private int binarySearch(int target, MountainArray mountainArr, int begin, int end, boolean mode) {
+        while (begin < end) {
+            int mid = (begin + end) >> 1;
+            Integer mid_val = mountainArr.get(mid);
+            if (mid_val == target) return mid;
+            if (mid_val > target == mode) end = mid - 1;
+            else begin = mid + 1;
+        }
+        return mountainArr.get(begin) == target ? begin : -1;
+    }
+}
