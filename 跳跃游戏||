@@ -1,0 +1,24 @@
+class Solution {
+    public int jump(int[] nums) {
+        
+        int len = nums.length, cnt = 0, t = 0;
+        if(len == 1) return cnt;
+
+        for(int i = 0; i < len; i = t){
+
+            int max = nums[i]+i;
+            if(max >= len-1) return ++cnt;
+            ++cnt;
+
+            for(int j = i+1; j <= i+nums[i] && j < len; j++){
+                if(nums[j]+j > max){
+                    t = j;
+                    max = nums[j]+j;
+                }
+            }
+
+            if(nums[t] + t >= len-1) return ++cnt;
+        }
+        return cnt;
+    }
+}
