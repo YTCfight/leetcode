@@ -1,0 +1,36 @@
+class Solution {
+    public ListNode reverseKGroup(ListNode head, int k) {
+        if (head == null || k < 2) {
+            return head;
+        }
+        // 定义指针节点，用于找到每次传入节点开始的第 k 个节点。
+        ListNode p = head;
+        // 计数器，辅助操作 k 个节点。
+        int count = 0;
+        // 找到 k 个节点之后下一组的头节点。
+        while (p != null && count < k) {
+            p = p.next;
+            count++;
+        }
+        // 当前一组够 k 个节点则翻转，不够则直接返回头节点。
+        if (count == k) {
+            // 递归循环下一组，指针指向下一组的头节点。
+            p = reverseKGroup(p, k);
+            while (count > 0) {
+                // 每次计数 -1 ，依次翻转 k 个节点。
+                count--;
+                // 记录头节点下一个节点的索引。
+                ListNode temp = head.next;
+                // 将头节点的 next 指向下一组节点的头节点。
+                head.next = p;
+                // 指针标记下一个节点翻转后的 next 节点。
+                p = head;
+                // head 指向下一个要翻转的节点。
+                head = temp;
+            }
+            // 翻转完成后，头节点为指针最后指向节点。
+            head = p;
+        }
+        return head;
+    }
+}
