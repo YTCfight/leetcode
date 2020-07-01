@@ -1,0 +1,42 @@
+class Solution {
+    public static String decodeString(String s) {
+        char[] chs = s.toCharArray();
+
+        //用 Object
+        Stack<Object> stack = new Stack<>();
+
+        // 计算中括号前的数字是多少，不一定是一位数。
+        int num = 0;
+
+        for (char c : chs) {
+            if (Character.isDigit(c)) {
+                // 1. 数字则直接计算
+                num = num * 10 + c - '0';
+            } else if (c == '[') {
+                // 2. 左括号, 先要把前面的数字放进去, 左中括号不用入栈
+                stack.push(num);
+                num = 0;
+            } else if (c == ']') {
+                // 3. 右括号, 出栈, 获取局部字符串再根据前面的数字得到乘次数再放入stack
+                String str = popAndGetString(stack);
+                int times = (int) stack.pop();
+                String temp = String.join("", Collections.nCopies(times, str));
+                stack.push(temp);
+            } else {
+                // 4. 正常字符, 放String类型
+                stack.push(String.valueOf(c));
+            }
+        }
+        return new StringBuilder(popAndGetString(stack)).reverse().toString();
+    }
+
+    // 这边一种情况是，前面可能已经变成正序的了，但是后面还有，后面来了，然后在这个方法中reverse一下就又变反了
+    // 那我干脆只在最终结果处reverse，其他过程不reverse
+    private static String popAndGetString(Stack<Object> stack) {
+        StringBuilder sb = new StringBuilder();
+        while (!stack.isEmpty() && stack.peek() instanceof String) {
+            sb.append(stack.pop());
+        }
+        return sb.toString();
+    }
+}
