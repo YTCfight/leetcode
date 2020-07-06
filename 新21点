@@ -1,0 +1,32 @@
+class Solution {
+    public double new21Game(int N, int K, int W) {
+
+        double[] dp = new double[N+1];
+
+        //初始0位赋1
+        for (int i = 0; i < N+1 ; i++) {
+            dp[i] = 1;
+        }
+        //窗口统计变量
+        double sum = 0;
+        for (int i = 1; i < N+1 ; i++) {
+            if(i > W && i <= K+W){
+                //左边够w种情况概率，窗口滑动，舍弃最左侧概率
+                sum = sum - dp[i-W-1];
+            }
+            if(i<=K){
+                //左边不够K概率,窗口右移，合并右侧新概率
+                sum = sum + dp[i-1];
+            }
+            dp[i] = sum / W ;
+        }
+        //获取最终结果
+        double res = 0 ;
+        int high = ((K + W <= N) ? (K + W) : (N));
+        for (int i = K; i <= high; i++) {
+            res = res + dp[i];
+        }
+        return res;
+        
+    }
+}
