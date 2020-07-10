@@ -1,0 +1,48 @@
+class Solution {
+    public boolean equationsPossible(String[] equations) {
+        int[] arr = new int[26];
+        int t = 1;
+        boolean res = true;
+
+        for (String e : equations) {
+            int a = e.charAt(0) - 'a';
+            int b = e.charAt(3) - 'a';
+            if (e.charAt(1) == '=') {
+                if (arr[a] != 0 && arr[b] != 0 && arr[a] != arr[b]) {
+                    int max = Math.max(arr[b], arr[a]);
+                    int min = Math.min(arr[b], arr[a]);
+                    arr[a] = arr[b] = min;
+                    //处理 a==b  c==d  a==d 的情况， 把大值替换为小值
+                    for (int i = 0; i < arr.length; i++) {
+                        if (arr[i] == max) {
+                            arr[i] = min;
+                        }
+                    }
+                } else if (arr[a] == 0 && arr[b] == 0) {
+                    arr[a] = arr[b] = t;
+                    t++;
+                } else if (arr[a] == 0) {
+                    arr[a] = arr[b];
+                } else {
+                    arr[b] = arr[a];
+                }
+            }
+        }
+
+        for (String e : equations) {
+            int a = e.charAt(0) - 'a';
+            int b = e.charAt(3) - 'a';
+            if (e.charAt(1) == '!') {
+                if (a == b) {
+                    return false;
+                }
+                if (arr[a] != 0 || arr[b] != 0) {
+                    if (arr[a] == arr[b]) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return res;
+    }
+}
