@@ -1,0 +1,25 @@
+class Solution {
+    public int firstMissingPositive(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 1;
+        }
+        int ret = 1;
+        Set<Integer> set = new HashSet<>();
+        for (int n :nums) {
+            set.add(n);
+        }
+        List<Integer> list = new ArrayList<>(set);
+        Collections.sort(list);
+        for (int n : list) {
+            if (n <= 0) {
+                continue;
+            }
+            if (n != ret) {
+                return ret;
+            } else {
+                ret++;
+            }
+        }
+        return ret;
+    }
+}
