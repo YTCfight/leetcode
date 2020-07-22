@@ -1,0 +1,27 @@
+class Solution {
+    public int minSubArrayLen(int s, int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        int[] arr = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            int sum = 0;
+            int len = 0;
+            for (int j = i; j >= 0; j--) {
+                sum += nums[j];
+                len++;
+                if (sum >= s) {
+                    arr[i] = len;
+                    break;
+                }
+            }
+        }
+        Arrays.sort(arr);
+        for (int n : arr) {
+            if (n != 0) {
+                return n;
+            }
+        }
+        return 0;
+    }
+}
