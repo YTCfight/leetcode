@@ -1,0 +1,32 @@
+class Solution {
+    public boolean isMatch(String A, String B) {
+        int n = A.length();
+        int m = B.length();
+
+        boolean[][] f = new boolean[n + 1][m + 1];
+
+        for (int i = 0; i <= n; i++) {
+            for (int j = 0; j <= m; j++) {
+                // 空通配串与非空通配串两种情况讨论
+                if (j == 0) {
+                    f[i][j] = i == 0;
+                } else {
+                    // 分为最后一个字符是不是 * 的两种情况
+                    if (B.charAt(j - 1) != '*') {
+                        if (i > 0 && (A.charAt(i - 1) == B.charAt(j - 1) || B.charAt(j - 1) == '?')) {
+                            f[i][j] = f[i - 1][j - 1];
+                        }
+                    } else {
+                        // 匹配0个,直接无视 *, A 不动 B动,包含i= 0的情况
+                        f[i][j] |= f[i][j - 1];
+                        // 匹配0个,不无视的情况, A 动 B 不动
+                        if (i > 0) {
+                            f[i][j] |= f[i - 1][j];
+                        }
+                    }
+                }
+            }
+        }
+        return f[n][m];
+    }
+}
