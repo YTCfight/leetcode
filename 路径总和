@@ -1,0 +1,20 @@
+class Solution {
+    public boolean hasPathSum(TreeNode root, int sum) {
+        if (root == null) {
+            return false;
+        }
+        return fun(root, sum, 0);
+    }
+
+    public boolean fun(TreeNode root, int sum, int cur) {
+        if (root == null) {
+            return false;
+        }
+        cur += root.val;
+        if (root.left == null && root.right == null) {
+            return cur == sum;
+        } else {
+            return fun(root.left, sum, cur) || fun(root.right, sum, cur);
+        }
+    }
+}
