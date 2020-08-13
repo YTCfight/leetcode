@@ -1,0 +1,31 @@
+import java.util.Vector;
+
+class Solution {
+    public boolean divisorGame(int N) {
+        if (N <= 1) {
+            return false;
+        }
+        // dp[i] N=i时的结果
+        boolean[] dp = new boolean[N + 1];
+
+        // basecase 先手的结局是固定的
+        dp[0] = false;
+        dp[1] = false;
+
+        // 状态转移 N > 1时，先手状态
+        for (int i = 2; i < N + 1; i++) {
+            // 找到因子
+            for (int j = 1; j < i; j++) {
+                if (i % j == 0) {
+                    // 由于二者都是聪明人，每次都会选对自己有利的结果
+                    dp[i] = dp[i] || !dp[i - j];
+                    if (dp[i]) {
+                        break;
+                    }
+                }
+            }
+        }
+
+        return dp[N];
+    }
+}
