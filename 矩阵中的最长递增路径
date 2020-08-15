@@ -1,0 +1,34 @@
+class Solution {
+    public int[][] dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+    public int longestIncreasingPath(int[][] matrix) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return 0;
+        }
+        int row = matrix.length;
+        int col = matrix[0].length;
+        int[][] memo = new int[row][col];
+        int ans = 0;
+        for (int i = 0; i < row; ++i) {
+            for (int j = 0; j < col; ++j) {
+                ans = Math.max(ans, dfs(matrix,row, col, i, j, memo));
+            }
+        }
+        return ans;
+    }
+
+    public int dfs(int[][] matrix, int row, int col, int cRow, int cCol, int[][] memo) {
+        if (memo[cRow][cCol] != 0) {
+            return memo[cRow][cCol];
+        }
+        memo[cRow][cCol]++;
+        for (int i = 0; i < 4; i++) {
+            int newRow = cRow + dirs[i][0];
+            int newColumn = cCol + dirs[i][1];
+            if (newRow >= 0 && newRow < row && newColumn >= 0 && newColumn < col && matrix[newRow][newColumn] > matrix[cRow][cCol]) {
+                memo[cRow][cCol] = Math.max(memo[cRow][cCol], dfs(matrix,row, col, newRow, newColumn, memo) + 1);
+            }
+        }
+        return memo[cRow][cCol];
+    }
+}
