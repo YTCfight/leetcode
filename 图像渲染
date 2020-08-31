@@ -1,0 +1,29 @@
+class Solution {
+    int[][] arr = {{-1, 0},{1,0},{0,-1},{0,1}};
+    public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
+        if (image == null || image.length == 0) {
+            return null;
+        }
+        int row = image.length;
+        int col = image[0].length;
+        if (image[sr][sc] == newColor) {
+            return image;
+        }
+        dfs(image, sr, sc, row, col, newColor, image[sr][sc]);
+        return image;
+    }
+
+    public void dfs(int[][] image, int sr, int sc, int row, int col, int newColor, int old) {
+        image[sr][sc] = newColor;
+        for (int i = 0; i < 4; i++) {
+            int newSr = sr + arr[i][0];
+            int newSc = sc + arr[i][1];
+            if (newSr < 0 || newSc < 0 || newSr >= row || newSc >= col) {
+                continue;
+            } 
+            if (image[newSr][newSc] == old) {
+                dfs(image, newSr, newSc, row, col, newColor, old);
+            }
+        }
+    }
+}
