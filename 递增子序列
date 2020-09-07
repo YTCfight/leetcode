@@ -1,0 +1,29 @@
+class Solution {
+    public List<List<Integer>> findSubsequences(int[] nums) {
+        List<List<Integer>> list = new ArrayList<>();
+        if (nums == null || nums.length == 0) {
+            return list;
+        }
+        Set<List<Integer>> set = new HashSet<>();
+        boolean[] flag = new boolean[nums.length];
+        help(new ArrayList<>(), set, nums, flag, nums.length, 0);
+        return new ArrayList<>(set);
+    }
+    public void help(List<Integer> l,  Set<List<Integer>> set, int[] nums, boolean[] flag, int end, int start) {
+        if (l.size() >= 2) {
+            set.add(l);
+        }
+        for (int i = start; i < end; i++) {
+            if (!flag[i]) {
+                if (l.isEmpty() || nums[i] >= l.get(l.size() - 1)) {
+                    List<Integer> ll = new ArrayList<>(l);
+                    ll.add(nums[i]);
+                    flag[i] = true;
+                    help(ll, set, nums, flag, end, i + 1);
+                    flag[i] = false;
+                }
+                
+            }
+        }
+    }
+}
