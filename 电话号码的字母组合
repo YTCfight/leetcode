@@ -1,0 +1,22 @@
+class Solution {
+    String[] arr = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    public List<String> letterCombinations(String digits) {
+        List<String> list = new ArrayList<>();
+        if (digits == null || digits.length() == 0) {
+            return list;
+        }
+        dfs(digits, list, "", 0);
+        return list;
+    }
+
+    public void dfs(String digits, List<String> list, String curS, int idx) {
+        if (idx == digits.length()) {
+            list.add(curS);
+            return;
+        }
+        String s = arr[digits.charAt(idx) - 48];
+        for (char c : s.toCharArray()) {
+            dfs(digits, list, curS + c, idx + 1);
+        }
+    }
+}
