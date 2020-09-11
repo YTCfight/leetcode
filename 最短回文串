@@ -1,0 +1,16 @@
+class Solution {
+    public String shortestPalindrome(String s) {
+        if (s == null || s.length() == 0) {
+            return "";
+        }
+        int len = s.length();
+        StringBuilder sb = new StringBuilder(s).reverse();
+        int i = 0;
+        for (; i < len; i++) {
+            if (s.substring(0, len -i).equals(sb.substring(i))) {
+                break;
+            }
+        }
+        return new StringBuilder(s.substring(len - i)).reverse() + s;
+    }
+}
