@@ -1,0 +1,23 @@
+class Solution {
+    public int nthUglyNumber(int n) {
+        int[] nums = new int[n];
+        nums[0] = 1;
+        int two = 0;
+        int three = 0;
+        int five = 0;
+        for (int i = 1; i < n; i++) {
+            int min = Math.min(nums[two] * 2, Math.min(nums[three] * 3, nums[five] * 5));
+            if (min == nums[two] * 2) {
+                two++;
+            }
+            if (min == nums[three] * 3) {
+                three++;
+            }
+            if (min == nums[five] * 5) {
+                five++;
+            }
+            nums[i] = min;
+        }
+        return nums[n - 1];
+    }
+}
