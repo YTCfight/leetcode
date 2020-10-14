@@ -1,3 +1,5 @@
+ 方法一：
+ 
  public List<String> commonChars(String[] A) {
         int[] ans = new int[26];
         for (int i = 0; i < 26; i++) {
@@ -24,3 +26,40 @@
         }
         return list;
     }
+
+方法二：
+
+class Solution {
+    public List<String> commonChars(String[] A) {
+        List<String> list = new ArrayList<>();
+        if (A == null || A.length == 0) {
+            return list;
+        }
+        Map<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < A[0].length(); i++) {
+            map.put(A[0].charAt(i), map.getOrDefault(A[0].charAt(i), 0) + 1);
+        }
+        for (int i = 1; i < A.length; i++) {
+            Map<Character, Integer> m = new HashMap<>();
+            for (int j = 0; j < A[i].length(); j++) {
+                m.put(A[i].charAt(j), m.getOrDefault(A[i].charAt(j), 0) + 1);
+            }
+            for (Map.Entry<Character, Integer> entry : map.entrySet()) {
+                char key = entry.getKey();
+                int value = entry.getValue();
+                int count = m.getOrDefault(key, 0);
+                map.put(key, Math.min(value, count));
+            }
+        }
+        for (Map.Entry<Character, Integer> entry : map.entrySet()) {
+            int count = entry.getValue();
+            if (count == 0) {
+                continue;
+            }
+            for (int i = 0; i < count; i++){
+                list.add(String.valueOf(entry.getKey()));
+            }
+        }
+        return list;
+    }
+}
