@@ -1,0 +1,43 @@
+class Node {
+    int x;
+    int y;
+    public Node(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+
+class Solution {
+    public int totalNQueens(int n) {
+        if (n <= 0) {
+            return 0;
+        }
+        List<List<Node>> list = new ArrayList<>();
+        dfs(list, new ArrayList<>(), n, 0);
+        return list.size();
+    }
+
+    public void dfs(List<List<Node>> list, List<Node> l, int n, int curR) {
+        if (curR == n) {
+            list.add(new ArrayList<>(l));
+            return;
+        }
+        for (int i = 0; i < n; i++) {
+            if (qualified(l, curR, i)) {
+                Node nn = new Node(curR, i);
+                l.add(nn);
+                dfs(list, l, n, curR + 1);
+                l.remove(nn);
+            }
+        }
+    }
+
+    public boolean qualified(List<Node> l, int curR, int col) {
+        for (Node n : l) {
+            if (n.x == curR || n.y == col || (n.x + n.y == curR + col) || (n.x - n.y == curR - col)) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
