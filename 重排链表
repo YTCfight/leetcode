@@ -48,3 +48,35 @@
         }
         return count;
     }
+    
+    
+    
+    方法二：
+    
+    public static void reorderList(ListNode head) {
+        if (head == null || head.next == null) {
+            return;
+        }
+        List<Integer> list = new ArrayList<>();
+        for (ListNode cur = head; cur != null; cur = cur.next) {
+            list.add(cur.val);
+        }
+        List<Integer> l = new ArrayList<>();
+        int left = 0;
+        int right = list.size() - 1;
+        while(left < right) {
+            l.add(list.get(left));
+            l.add(list.get(right));
+            left++;
+            right--;
+        }
+        if (list.size() % 2 == 1) {
+            l.add(list.get(left));
+        }
+        head = new ListNode(l.get(0));
+        ListNode tail = head;
+        for (int i = 1; i < l.size(); i++) {
+            tail.next = new ListNode(l.get(i));
+            tail = tail.next;
+        }
+    }
