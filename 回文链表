@@ -27,3 +27,47 @@
        }
        return true;
     }
+
+
+
+
+方法二：
+
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        if (head == null || head.next == null) {
+            return true;
+        }
+        int offset = size(head) / 2;
+        ListNode newHead = head;
+        for (int i = 0; i < offset; i++) {
+            newHead = newHead.next;
+        }
+        ListNode pre = null;
+        ListNode node = newHead;
+        while(node != null) {
+            ListNode next = node.next;
+            if (next == null) {
+                newHead = node;
+            }
+            node.next = pre;
+            pre = node;
+            node = next;
+        }
+        while(newHead != null) {
+            if (head.val != newHead.val) {
+                return false;
+            }
+            head = head.next;
+            newHead = newHead.next;
+        }
+        return true;
+    }
+    public int size(ListNode head) {
+        int res = 0;
+        for (ListNode node = head; node != null; node = node.next) {
+            res++;
+        }
+        return res;
+    }
+}
